@@ -65,7 +65,7 @@ const DrawerContent = ({ navigation }) => {
 
         <Divider
           width={60}
-          customStyle={{ marginTop: "10px", marginBottom: "20px" }}
+          customStyle={{ marginTop: 10, marginBottom: 20 }}
         />
 
         {menuItems.map((item) => {
@@ -95,7 +95,7 @@ const DrawerContent = ({ navigation }) => {
 
         <Divider
           width={60}
-          customStyle={{ marginTop: "10px", marginBottom: "10px" }}
+          customStyle={{ marginTop: 10, marginBottom: 10 }}
         />
 
         <ItemDrawer

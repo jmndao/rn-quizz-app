@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, SafeAreaView, TouchableOpacity } from "react-native";
 import Header from "../components/Header";
 import ThemeCard from "../components/ThemeCard";
 import { themes } from "../data";
@@ -18,7 +18,7 @@ const LeftComponent = ({ navigation }) => {
 
 const Home = (props) => {
   return (
-    <View style={{ flex: 1 }} className="bg-white py-2 px-3">
+    <SafeAreaView style={{ flex: 1 }} className="bg-white py-2 px-1">
       {/* Header */}
       <Header
         leftComponent={<LeftComponent navigation={props.navigation} />}
@@ -29,6 +29,7 @@ const Home = (props) => {
         data={themes}
         keyExtractor={(item) => `${item.id}`}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 20 }}
         renderItem={({ item }) => {
           return (
             <ThemeCard
@@ -40,7 +41,7 @@ const Home = (props) => {
           );
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

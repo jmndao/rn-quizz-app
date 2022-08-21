@@ -10,7 +10,7 @@ const ThemeCard = ({ item, onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="relative mb-3 bg-slate-50 shadow-lg shadow-sky-400 rounded-md h-32"
+      className="relative mb-3 bg-slate-50 shadow-lg shadow-sky-400 rounded-md h-40"
     >
       <Image
         source={item.cover}

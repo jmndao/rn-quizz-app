@@ -43,14 +43,14 @@ const Theme = (props) => {
 
         {/* Description */}
         <View className="mb-2">
-          <Text className="text-sky-600 font-bold text-lg pb-2">
+          <Text className="text-sky-600 font-bold text-sm pb-2">
             Sens & Portee d'etude
           </Text>
           <Text>{theme.description}</Text>
         </View>
 
         {/* Image Card */}
-        <View className="relative max-h-64 rounded-md my-4 shadow-lg shadow-sky-900">
+        <View className="relative max-h-64 rounded-md my-2 shadow-lg shadow-sky-900">
           <Image
             source={theme.cover}
             className="absolute inset-0 w-full h-full rounded-md"
@@ -58,16 +58,16 @@ const Theme = (props) => {
           />
           <View className="bg-sky-700 opacity-70 absolute inset-0 w-full h-full rounded-md" />
 
-          <View className="p-4">
+          <View className="py-3 px-4">
             <Text className="text-white font-extrabold text-xl">210</Text>
-            <Text className="text-white font-semibold text-xl">Scores</Text>
-            <Text className="text-sky-300 font-extrabold text-base">{`${countAllQst} Questions`}</Text>
+            <Text className="text-white font-semibold text-sm">Scores</Text>
+            <Text className="text-sky-200 font-extrabold">{`${countAllQst} Questions`}</Text>
           </View>
         </View>
 
         {/* Details Contenu */}
         <View className="mb-2">
-          <Text className="text-sky-600 font-bold text-lg pb-2">
+          <Text className="text-sky-600 font-bold text-sm pb-2">
             Notions & Contenus
           </Text>
         </View>
@@ -77,6 +77,7 @@ const Theme = (props) => {
           data={theme.contents}
           keyExtractor={(item) => `${item._id}`}
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 100 }}
           renderItem={({ item }) => {
             return (
               <ContentCard

@@ -1,8 +1,9 @@
 import React from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Header from "../components/Header";
-import QuestionItem from "../components/QuestionItem";
+import Quizz from "../components/Quizz";
+import { useQuizz } from "../context/QuizzContext";
 
 const LeftComponent = ({ navigation }) => {
   return (
@@ -18,37 +19,19 @@ const LeftComponent = ({ navigation }) => {
 const Question = (props) => {
   const { content } = props.route.params;
 
+  const { renderProgressBar } = useQuizz();
+
   return (
     <View style={{ flex: 1 }} className="bg-white py-2 px-3">
       {/* Header */}
       <Header
         leftComponent={<LeftComponent navigation={props.navigation} />}
-        title={`${content.questions.length} Questions`}
+        title={`${content.title}`}
       />
+      {renderProgressBar()}
 
-      <View style={{ alignItems: "flex-end" }} className="my-2.5">
-        <Text className="text-white text-lg font-semibold bg-sky-700 rounded-full px-4 py-0.5 shadow-md shadow-sky-800">
-          {content.title}
-        </Text>
-      </View>
-
-      <form className="relative" style={{ flex: 1 }}>
-        <FlatList
-          data={content.questions}
-          keyExtractor={(item) => `${item._id}`}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => {
-            return <QuestionItem question={item} />;
-          }}
-        />
-
-        <TouchableOpacity
-          onPress={() => console.log("Submitted")}
-          className="absolute py-2.5 px-4 bottom-5 right-5 rounded-full bg-sky-700 outline-none border-0 shadow-xl shadow-sky-900"
-        >
-          <Text className="text-white font-semibold text-sm">Soumettre</Text>
-        </TouchableOpacity>
-      </form>
+      {/* Quizz */}
+      <Quizz questions={content.questions} />
     </View>
   );
 };

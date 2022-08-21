@@ -4,9 +4,9 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 const SubHeader = ({ title, onPress }) => {
   return (
-    <View className="flex-row justify-between items-center my-4">
+    <View className="flex-row justify-between items-center mb-2">
       <View className="px-2.5 py-1 bg-sky-600 rounded-full shadow-lg shadow-sky-900">
-        <Text className="text-white font-semibold text-base">{title}</Text>
+        <Text className="text-white font-semibold text-sm">{title}</Text>
       </View>
       <TouchableOpacity
         onPress={onPress}

@@ -20,7 +20,8 @@ const TabButton = ({ label, icon, isFocused, onPress }) => {
           color={isFocused ? "#0369A1" : "#1E293B"}
         />
         <Text
-          className={`${isFocused ? "text-sky-700" : "text-slate-800"} text-sm`}
+          className={`${isFocused ? "text-sky-700" : "text-slate-800"}`}
+          style={{ fontSize: 10 }}
         >
           {label}
         </Text>
@@ -38,7 +39,7 @@ const Layout = ({ children }) => {
       {/* Bottom Tabs */}
       <View
         style={{
-          height: 100,
+          height: 70,
         }}
         className="absolute bottom-0 left-0 w-full"
       >
@@ -52,7 +53,7 @@ const Layout = ({ children }) => {
             top: -10,
             left: 0,
             right: 0,
-            height: 100,
+            height: 70,
             borderTopLeftRadius: 15,
             borderTopRightRadius: 15,
           }}
@@ -61,7 +62,7 @@ const Layout = ({ children }) => {
         {/* Tabs */}
         <View
           style={{ flex: 1 }}
-          className="flex-row justify-around p-5 rounded-t-3xl shadow-xl shadow-neutral-700 bg-white"
+          className="flex-row justify-around p-1 rounded-t-3xl shadow-xl shadow-neutral-700 bg-white"
         >
           <TabButton
             label={"Accueil"}
