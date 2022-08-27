@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { LinearGradient } from "expo-linear-gradient";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 import { ActivityIndicator } from "react-native-paper";
 import { COLORS } from "../constants";
@@ -23,43 +22,23 @@ const Register = ({ navigation }) => {
   const [data, setData] = React.useState({
     email: "",
     password: "",
-    confirm_password: "",
-    check_textInputChange: false,
+    confirmPassword: "",
+    checkTextInputChange: false,
     secureTextEntry: true,
-    confirm_secureTextEntry: true,
+    confirmSecureTextEntry: true,
     emailErr: "",
     passwordErr: "",
     confirmPasswordErr: "",
   });
 
-  const textInputChange = (val) => {
-    if (val.length !== 0) {
-      setData({
-        ...data,
-        email: val,
-        check_textInputChange: true,
-      });
-    } else {
-      setData({
-        ...data,
-        email: val,
-        check_textInputChange: false,
-      });
-    }
+  const isEmailValid = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
   };
 
-  const handlePasswordChange = (val) => {
-    setData({
-      ...data,
-      password: val,
-    });
-  };
-
-  const handleConfirmPasswordChange = (val) => {
-    setData({
-      ...data,
-      confirm_password: val,
-    });
+  const handleChange = (input, val) => {
+    setData((prev) => ({ ...prev, [input]: val }));
   };
 
   const updateSecureTextEntry = () => {
@@ -72,18 +51,14 @@ const Register = ({ navigation }) => {
   const updateConfirmSecureTextEntry = () => {
     setData({
       ...data,
-      confirm_secureTextEntry: !data.confirm_secureTextEntry,
+      confirm_secureTextEntry: !data.confirmSecureTextEntry,
     });
   };
 
   const onCreate = () => {
-    if (
-      data.email &&
-      data.password &&
-      data.password === data.confirm_password
-    ) {
+    if (data.email && data.password && data.password === data.confirmPassword) {
       createUser(data.email, data.password);
-    } else if (data.password !== data.confirm_password) {
+    } else if (data.password !== data.confirmPassword) {
       setData({
         ...data,
         passwordErr: "Les mots de passe ne correspondent pas.",
@@ -102,101 +77,87 @@ const Register = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.accent }}>
       <StatusBar backgroundColor={COLORS.accent} barStyle="light-content" />
+
       <View style={styles.header}>
         <Text style={styles.text_header}>Creer Mon Compte!</Text>
       </View>
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+
+      <Animatable.View
+        animation="fadeInUpBig"
+        style={styles.footer}
+        className="bg-white"
+      >
         <ScrollView>
-          <Text style={styles.text_footer}>Email</Text>
-          <View style={styles.action}>
-            <FontAwesome name="user-o" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Votre adresse mail"
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={(val) => textInputChange(val)}
-            />
-            {data.check_textInputChange ? (
-              <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
+          {/* Email Input */}
+          <View className="my-1.5">
+            <Text className="text-gray-800 text-lg">Email</Text>
+            <View style={styles.action}>
+              <Feather name="at-sign" color="#05375a" size={20} />
+              <TextInput
+                placeholder="Votre adresse mail"
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={(val) => handleChange("email", val)}
+              />
+              {isEmailValid(data.email) ? (
+                <Animatable.View animation="bounceIn">
+                  <Feather name="check-circle" color="green" size={20} />
+                </Animatable.View>
+              ) : null}
+            </View>
+            {data.emailErr ? (
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={styles.errorMsg}>{data.emailErr}</Text>
               </Animatable.View>
             ) : null}
           </View>
-          {data.emailErr ? (
-            <Animatable.View animation="fadeInLeft" duration={500}>
-              <Text style={styles.errorMsg}>{data.emailErr}</Text>
-            </Animatable.View>
-          ) : null}
 
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                marginTop: 35,
-              },
-            ]}
-          >
-            Mot de Passe
-          </Text>
-          <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Mot de Passe"
-              secureTextEntry={data.secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={(val) => handlePasswordChange(val)}
-            />
-            <TouchableOpacity onPress={updateSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
-              )}
-            </TouchableOpacity>
+          {/* Password Input */}
+          <View className="my-1.5">
+            <Text className="text-gray-800 text-lg">Mot de Passe</Text>
+            <View style={styles.action}>
+              <Feather name="lock" color="#05375a" size={20} />
+              <TextInput
+                placeholder="Mot de Passe"
+                secureTextEntry={data.secureTextEntry ? true : false}
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={(val) => handleChange("password", val)}
+              />
+              <TouchableOpacity onPress={updateSecureTextEntry}>
+                {data.secureTextEntry ? (
+                  <Feather name="eye-off" color="grey" size={20} />
+                ) : (
+                  <Feather name="eye" color="grey" size={20} />
+                )}
+              </TouchableOpacity>
+            </View>
           </View>
 
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                marginTop: 35,
-              },
-            ]}
-          >
-            Confirmation Mot de Passe
-          </Text>
-          <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Confirmation du Mot de Passe"
-              secureTextEntry={data.confirm_secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={(val) => handleConfirmPasswordChange(val)}
-            />
-            <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
-              )}
-            </TouchableOpacity>
+          {/* Confirmation Password Input */}
+          <View className="my-1.5">
+            <Text className="text-gray-800 text-lg">
+              Confirmation Mot de Passe
+            </Text>
+            <View style={styles.action}>
+              <Feather name="lock" color="#05375a" size={20} />
+              <TextInput
+                placeholder="Confirmation du Mot de Passe"
+                secureTextEntry={data.confirmSecureTextEntry ? true : false}
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={(val) => handleChange("confirmPassword", val)}
+              />
+              <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
+                {data.secureTextEntry ? (
+                  <Feather name="eye-off" color="grey" size={20} />
+                ) : (
+                  <Feather name="eye" color="grey" size={20} />
+                )}
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.textPrivate}>
-            <Text style={styles.color_textPrivate}>
-              By signing up you agree to our
-            </Text>
-            <Text style={[styles.color_textPrivate, { fontWeight: "bold" }]}>
-              {" "}
-              Terms of service
-            </Text>
-            <Text style={styles.color_textPrivate}> and</Text>
-            <Text style={[styles.color_textPrivate, { fontWeight: "bold" }]}>
-              {" "}
-              Privacy policy
-            </Text>
-          </View>
+
           <View style={styles.button}>
             <TouchableOpacity style={styles.signIn} onPress={onCreate}>
               <LinearGradient
@@ -284,7 +245,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    marginTop: Platform.OS === "ios" ? 0 : -12,
+    marginTop: Platform.OS === "ios" ? 0 : -5,
     paddingLeft: 10,
     color: "#05375a",
   },

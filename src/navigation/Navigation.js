@@ -14,6 +14,7 @@ import Theme from "../screens/Theme";
 import Question from "../screens/Question";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
+import Profile from "../screens/Profile";
 import { useFirebase } from "../context/FirebaseContext";
 
 const Drawer = createDrawerNavigator();
@@ -34,6 +35,8 @@ const HomeStackNavigator = () => {
           <Stack.Screen name="Accueil" component={Home} />
           <Stack.Screen name="Theme" component={Theme} />
           <Stack.Screen name="Question" component={Question} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Parametre" component={Settings} />
         </>
       ) : (
         <>

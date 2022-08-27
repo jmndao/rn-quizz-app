@@ -68,12 +68,12 @@ const DrawerContent = ({ navigation }) => {
           onPress={() => console.log("Profile")}
         >
           <Image
-            source={UserProfile_DEFAULT}
+            source={currentUser?.photoURL ?? UserProfile_DEFAULT}
             className="w-10 h-10 rounded-md"
           />
           <View>
             <Text className="font-semibold text-slate-100 text-base">
-              {currentUser?.email}
+              {currentUser?.displayName ?? currentUser?.email ?? "Anonymous"}
             </Text>
             <Text className="text-slate-200 text-sm">Score total: 202 pts</Text>
           </View>
@@ -114,7 +114,7 @@ const DrawerContent = ({ navigation }) => {
           title={"Parametre"}
           onPress={() => {
             changeTab("Settings");
-            navigation.navigate("Settings");
+            navigation.navigate("Parametre");
           }}
         />
         <ItemDrawer

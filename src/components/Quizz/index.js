@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, Modal, ScrollView } from "react-native";
 import { COLORS } from "../../constants";
 import { useQuizz } from "../../context/QuizzContext";
 import QuizzItem from "./QuizzItem";
-import uuid from "react-native-uuid";
 
 const Quizz = ({ questions }) => {
   const {

@@ -1,11 +1,14 @@
 import React from "react";
 import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
-import { COLORS } from "../../constants";
+import { useNavigation } from "@react-navigation/native";
 import { UserProfile_DEFAULT } from "../../data/images";
+import { COLORS } from "../../constants";
 
 const Header = ({ leftComponent, title }) => {
+  const navigation = useNavigation();
+
   return (
-    <View className="flex-row py-1 items-center justify-between my-2">
+    <View className="flex-row py-1.5 items-center justify-between mt-2 mb-4 border-b border-gray-300 shadow-md shadow-gray-800">
       <StatusBar barStyle="light-content" backgroundColor={COLORS.accent} />
 
       {/* Custom Open Drawer */}
@@ -19,7 +22,7 @@ const Header = ({ leftComponent, title }) => {
       </View>
 
       {/* Profile Button */}
-      <TouchableOpacity onPress={() => console.log("Profile")}>
+      <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
         <Image source={UserProfile_DEFAULT} className="w-8 h-8 rounded-md" />
       </TouchableOpacity>
     </View>

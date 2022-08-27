@@ -2,9 +2,11 @@ import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 
-const TabButton = ({ label, icon, isFocused, onPress }) => {
+const TabButton = ({ label, icon, onPress }) => {
+  const route = useRoute();
+
   return (
     <TouchableOpacity onPress={onPress}>
       <View
@@ -17,10 +19,10 @@ const TabButton = ({ label, icon, isFocused, onPress }) => {
         <EntypoIcon
           name={icon}
           size={22}
-          color={isFocused ? "#0369A1" : "#1E293B"}
+          color={route.name === label ? "#0369A1" : "#1E293B"}
         />
         <Text
-          className={`${isFocused ? "text-sky-700" : "text-slate-800"}`}
+          className={`${route.name === label ? "text-sky-700" : "text-slate-800"}`}
           style={{ fontSize: 10 }}
         >
           {label}
@@ -67,29 +69,25 @@ const Layout = ({ children }) => {
           <TabButton
             label={"Accueil"}
             icon={"home"}
-            isFocused={true}
             onPress={() => navigation.navigate("Accueil")}
           />
 
           <TabButton
             label={"Score"}
             icon={"flag"}
-            isFocused={false}
             onPress={() => navigation.navigate("Score")}
           />
 
           <TabButton
             label={"Nouveaute"}
             icon={"new"}
-            isFocused={false}
             onPress={() => navigation.navigate("Nouveaute")}
           />
 
           <TabButton
             label={"Parametre"}
             icon={"cog"}
-            isFocused={false}
-            onPress={() => navigation.navigate("Settings")}
+            onPress={() => navigation.navigate("Parametre")}
           />
         </View>
       </View>

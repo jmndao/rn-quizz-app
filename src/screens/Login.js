@@ -132,12 +132,12 @@ const Login = ({ navigation }) => {
           style={[styles.text_footer, { marginTop: 35 }]}
           className="text-gray-800"
         >
-          Password
+          Mot de Passe
         </Text>
         <View style={styles.action}>
           <Feather name="lock" color={COLORS.accent} size={20} />
           <TextInput
-            placeholder="Your Password"
+            placeholder="Mot de Passe"
             secureTextEntry={data.secureTextEntry ? true : false}
             style={[styles.textInput]}
             className="text-gray-800"
