@@ -12,13 +12,16 @@ import DrawerContent from "../components/DrawerContent";
 import Home from "../screens/Home";
 import Theme from "../screens/Theme";
 import Question from "../screens/Question";
-import Result from "../screens/Result";
+import Login from "../screens/Login";
+import Register from "../screens/Register";
+import { useFirebase } from "../context/FirebaseContext";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 //
 
 const HomeStackNavigator = () => {
+  const { currentUser } = useFirebase();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -26,10 +29,18 @@ const HomeStackNavigator = () => {
       }}
       initialRouteName="Accueil"
     >
-      <Stack.Screen name="Accueil" component={Home} />
-      <Stack.Screen name="Theme" component={Theme} />
-      <Stack.Screen name="Question" component={Question} />
-      <Stack.Screen name="Result" component={Result} />
+      {currentUser ? (
+        <>
+          <Stack.Screen name="Accueil" component={Home} />
+          <Stack.Screen name="Theme" component={Theme} />
+          <Stack.Screen name="Question" component={Question} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Connexion" component={Login} />
+          <Stack.Screen name="Compte" component={Register} />
+        </>
+      )}
     </Stack.Navigator>
   );
 };
