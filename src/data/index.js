@@ -144,4 +144,95 @@ const themes = [{
     },
 ];
 
-export { themes };
+const myScore = [{
+    // Id of the theme
+    title: "Ethique & Deontologie",
+    score: 45,
+    totalScore: 50,
+    myAnswers: [{
+            _id: "2a",
+            question: "Parmi ces normes, quels sont celles dites « chapeau »",
+            type: "multi",
+            score: 20,
+            goodAnswers: 2,
+            answers: [{
+                    _id: "IDW93SE",
+                    option: "Cadre de référence",
+                    checked: false,
+                    isCorrect: false,
+                },
+                {
+                    _id: "IWE830I",
+                    option: "Le code de déontologie",
+                    checked: true,
+                    isCorrect: false,
+                },
+                {
+                    _id: "WEFW74X",
+                    option: "La NPMQ",
+                    checked: false,
+                    isCorrect: true,
+                },
+                {
+                    _id: "93O9304",
+                    option: "L’ordonnance de 1945",
+                    checked: true,
+                    isCorrect: false,
+                },
+                { _id: "KDSIJS9", option: "La NPLAB", isCorrect: true },
+            ],
+            more: "",
+        },
+        {
+            _id: "2b",
+            text: "Les droits de vote des sociétés de commissariat aux comptes doivent être détenus à plus de...............% par des commissaires aux comptes",
+            type: "single",
+            goodAnswers: 1,
+            score: 10,
+            answers: [
+                { _id: "IWEB483", option: "75%", checked: false, isCorrect: false },
+                { _id: "JDUWO90", option: "50%", checked: true, isCorrect: true },
+            ],
+            more: "",
+        },
+        {
+            _id: "2c",
+            text: "Un expert-comptable peut assister ses clients dans le recouvrement de leurs créances sur un compte bancaire dédié, détenu par l’expert-comptable.",
+            type: "single",
+            goodAnswers: 1,
+            score: 10,
+            answers: [{
+                    _id: "DBW8443",
+                    option: "Vrai",
+                    checked: true,
+                    isCorrect: false,
+                },
+                { _id: "30483IW", option: "Faux", checked: false, isCorrect: true },
+            ],
+            more: "",
+        },
+        {
+            _id: "2d",
+            text: "Les compétences spécialisées sont accordées pour une durée de......... ans, renouvelable",
+            type: "single",
+            score: 10,
+            goodAnswers: 1,
+            answers: [{
+                    _id: "IUEERP9",
+                    option: "5 ans",
+                    checked: false,
+                    isCorrect: true,
+                },
+                {
+                    _id: "3883OIP",
+                    option: "3 ans",
+                    checked: true,
+                    isCorrect: false,
+                },
+            ],
+            more: "Article 307 du règlement intérieur de l'ordre des experts comptables",
+        },
+    ],
+}, ];
+
+export { themes, myScore };
