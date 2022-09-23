@@ -34,12 +34,7 @@ const Theme = (props) => {
         />
 
         {/* SubHeader */}
-        <SubHeader
-          title={theme.title}
-          onPress={() =>
-            props.navigation.navigate("Result", { content: theme.contents })
-          }
-        />
+        <SubHeader title={theme.title} />
 
         {/* Description */}
         <View className="mb-2">

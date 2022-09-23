@@ -42,7 +42,7 @@ const themes = [{
                 },
                 {
                     _id: "2b",
-                    text: "Les droits de vote des sociétés de commissariat aux comptes doivent être détenus à plus de...............% par des commissaires aux comptes",
+                    question: "Les droits de vote des sociétés de commissariat aux comptes doivent être détenus à plus de...............% par des commissaires aux comptes",
                     type: "single",
                     goodAnswers: 1,
                     score: 10,
@@ -54,7 +54,7 @@ const themes = [{
                 },
                 {
                     _id: "2c",
-                    text: "Un expert-comptable peut assister ses clients dans le recouvrement de leurs créances sur un compte bancaire dédié, détenu par l’expert-comptable.",
+                    question: "Un expert-comptable peut assister ses clients dans le recouvrement de leurs créances sur un compte bancaire dédié, détenu par l’expert-comptable.",
                     type: "single",
                     goodAnswers: 1,
                     score: 10,
@@ -69,7 +69,7 @@ const themes = [{
                 },
                 {
                     _id: "2d",
-                    text: "Les compétences spécialisées sont accordées pour une durée de......... ans, renouvelable",
+                    question: "Les compétences spécialisées sont accordées pour une durée de......... ans, renouvelable",
                     type: "single",
                     score: 10,
                     goodAnswers: 1,
@@ -151,7 +151,7 @@ const myScore = [{
     totalScore: 50,
     myAnswers: [{
             _id: "2a",
-            question: "Parmi ces normes, quels sont celles dites « chapeau »",
+            text: "Parmi ces normes, quels sont celles dites « chapeau »",
             type: "multi",
             score: 20,
             goodAnswers: 2,

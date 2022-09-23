@@ -3,6 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
+import { useTab } from "../../context/TabContext";
 
 const TabButton = ({ label, icon, onPress }) => {
   const route = useRoute();
@@ -22,7 +23,9 @@ const TabButton = ({ label, icon, onPress }) => {
           color={route.name === label ? "#0369A1" : "#1E293B"}
         />
         <Text
-          className={`${route.name === label ? "text-sky-700" : "text-slate-800"}`}
+          className={`${
+            route.name === label ? "text-sky-700" : "text-slate-800"
+          }`}
           style={{ fontSize: 10 }}
         >
           {label}
@@ -34,6 +37,12 @@ const TabButton = ({ label, icon, onPress }) => {
 
 const Layout = ({ children }) => {
   const navigation = useNavigation();
+  const { changeTab } = useTab();
+
+  const navigate = (path) => {
+    changeTab(path);
+    navigation.navigate(path);
+  };
 
   return (
     <View style={{ flex: 1 }} className="relative w-full">
@@ -69,13 +78,13 @@ const Layout = ({ children }) => {
           <TabButton
             label={"Accueil"}
             icon={"home"}
-            onPress={() => navigation.navigate("Accueil")}
+            onPress={() => navigate("Accueil")}
           />
 
           <TabButton
             label={"Score"}
             icon={"flag"}
-            onPress={() => navigation.navigate("Score")}
+            onPress={() => navigate("Score")}
           />
 
           <TabButton
@@ -87,7 +96,7 @@ const Layout = ({ children }) => {
           <TabButton
             label={"Parametre"}
             icon={"cog"}
-            onPress={() => navigation.navigate("Parametre")}
+            onPress={() => navigate("Parametre")}
           />
         </View>
       </View>

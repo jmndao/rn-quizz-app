@@ -92,7 +92,7 @@ const Login = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: COLORS.accent }}>
       <StatusBar backgroundColor={COLORS.accent} barStyle="light-content" />
       <View style={styles.header}>
-        <Text style={styles.text_header}>Welcome!</Text>
+        <Text style={styles.text_header}>Learning DEC</Text>
       </View>
       <Animatable.View
         animation="fadeInUpBig"

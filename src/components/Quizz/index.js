@@ -103,6 +103,7 @@ const Quizz = ({ questions }) => {
         position: "relative",
       }}
       contentContainerStyle={{ paddingBottom: 40 }}
+      showsVerticalScrollIndicator={false}
     >
       {/* Question */}
       {renderQuestion()}

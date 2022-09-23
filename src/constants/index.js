@@ -24,7 +24,7 @@ export const menuItems = [{
         id: "48jdu-xd",
         label: "Accueil",
         slug: "home",
-        path: "Home",
+        path: "Accueil",
         icon: "home",
     },
     {

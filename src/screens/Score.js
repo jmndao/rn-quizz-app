@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
@@ -34,10 +35,10 @@ const ScoreListItem = ({ item, onPress }) => {
       </View>
       <TouchableOpacity onPress={onPress} className="flex-row justify-end">
         <View className="w-40 flex-row justify-center space-x-2 items-center rounded-full bg-gray-800 px-4 py-1">
-          <Text className="text-gray-50 text-lg font-semibold underline">
+          <Text className="text-gray-50 text-base font-semibold underline">
             Voir Details
           </Text>
-          <Feather name="arrow-right" size={24} color={COLORS.primary} />
+          <Feather name="arrow-right" size={20} color={COLORS.primary} />
         </View>
       </TouchableOpacity>
     </View>
@@ -45,12 +46,14 @@ const ScoreListItem = ({ item, onPress }) => {
 };
 
 const Score = () => {
+  const navigation = useNavigation();
+
   return (
     <Layout>
       <View style={{ flex: 1, paddingHorizontal: 5, paddingVertical: 4 }}>
         {/* Some Text */}
         <Text className="text-2xl font-extrabold text-gray-800 py-4">
-          Review My Score
+          Revoir Mon Score
         </Text>
 
         {/* List of Scores */}
@@ -64,7 +67,7 @@ const Score = () => {
               <ScoreListItem
                 item={item}
                 onPress={() =>
-                  props.navigation.navigate("Question", { content: item })
+                  navigation.navigate("Detail", { myAnswers: item.myAnswers })
                 }
               />
             );
