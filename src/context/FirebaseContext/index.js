@@ -1,10 +1,6 @@
 import React from "react";
 import { getDatabase, onValue, ref, set } from "firebase/database";
-import {
-  getDocs,
-  collection,
-  getFirestore,
-} from "firebase/firestore";
+import { getDocs, collection, getFirestore } from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -16,7 +12,6 @@ import {
 import firebaseApp from "../../../firebaseApp";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../constants";
-
 
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
@@ -121,7 +116,7 @@ const FirebaseProvider = ({ children }) => {
   };
 
   // Firebase fetch themes method from firestore
-  const fetchThemes = React.useCallback(async () => {
+  const fetchThemes = async () => {
     setLoading(true);
     getDocs(collection(db, "themes"))
       .then((themes) => {
@@ -135,38 +130,35 @@ const FirebaseProvider = ({ children }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  };
 
-  const saveScore = React.useCallback(
-    async (score, nav, restartQuizz) => {
-      if (trackingScore.slug && trackingScore.id) {
-        setLoading(true);
-        set(
-          ref(rdb, "users/" + currentUser.uid + "/scores/" + trackingScore.id),
-          {
-            score,
-            ...trackingScore,
-          }
-        )
-          .then(() => {
-            setLoading(false);
-            restartQuizz();
-            nav("Score");
-          })
-          .catch((err) => {
-            nav("Accueil");
-          })
-          .finally(() => {
-            setLoading(false);
-            restartQuizz();
-          });
-      }
-    },
-    [trackingScore]
-  );
+  const saveScore = async (score, nav, restartQuizz) => {
+    if (trackingScore.slug && trackingScore.id) {
+      setLoading(true);
+      set(
+        ref(rdb, "users/" + currentUser.uid + "/scores/" + trackingScore.id),
+        {
+          score,
+          ...trackingScore,
+        }
+      )
+        .then(() => {
+          setLoading(false);
+          restartQuizz();
+          nav("Score");
+        })
+        .catch((err) => {
+          nav("Accueil");
+        })
+        .finally(() => {
+          setLoading(false);
+          restartQuizz();
+        });
+    }
+  };
 
   // Fetch my Score
-  const fetchMyAnswersAll = React.useCallback(async () => {
+  const fetchMyAnswersAll = async () => {
     setLoading(true);
     let formattedData;
     const scoreRef = ref(rdb, "users/" + currentUser.uid + "/scores");
@@ -178,7 +170,7 @@ const FirebaseProvider = ({ children }) => {
       setAllMyAnswers(formattedData);
       setLoading(false);
     });
-  }, [currentUser]);
+  };
 
   React.useEffect(() => {
     return onAuthStateChanged(auth, (user) => {

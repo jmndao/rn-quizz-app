@@ -33,7 +33,7 @@ const ThemeCard = ({ item, onPress }) => {
         <View style={{ alignItems: "flex-end" }}>
           <Text
             className="text-white text-sm font-semibold bg-sky-600 rounded-full px-4 py-0.5"
-            style={{ borderRadius: "50%" }}
+            style={{ borderRadius: 50 }}
           >
             {item.title}
           </Text>
