@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -18,20 +19,22 @@ const LeftComponent = ({ navigation }) => {
 
 const Question = (props) => {
   const { content } = props.route.params;
+  const navigate = useNavigation();
 
   const { renderProgressBar } = useQuizz();
 
   return (
-    <View style={{ flex: 1 }} className="bg-white py-2 px-3">
+    <View style={{ flex: 1 }}>
       {/* Header */}
       <Header
         leftComponent={<LeftComponent navigation={props.navigation} />}
         title={`${content.title}`}
       />
-      {renderProgressBar()}
-
-      {/* Quizz */}
-      <Quizz questions={content.questions} />
+      <View className="py-2 px-3">
+        {renderProgressBar()}
+        {/* Quizz */}
+        <Quizz questions={content.qa} nav={navigate} />
+      </View>
     </View>
   );
 };

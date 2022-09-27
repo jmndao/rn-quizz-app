@@ -1,13 +1,16 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Modal, ScrollView } from "react-native";
 import { COLORS } from "../../constants";
+import { useFirebase } from "../../context/FirebaseContext";
 import { useQuizz } from "../../context/QuizzContext";
 import QuizzItem from "./QuizzItem";
+import { ActivityIndicator } from "react-native-paper";
 
-const Quizz = ({ questions }) => {
+const Quizz = ({ questions, nav }) => {
   const {
     handleNext,
     restartQuizz,
+    setShowScoreModal,
     score,
     addScore,
     showScoreModal,
@@ -15,7 +18,11 @@ const Quizz = ({ questions }) => {
     setQstLength,
   } = useQuizz();
 
+  const { trackingScore, setTrackingScore, loading, saveScore } = useFirebase();
+
   const [countSelected, setCountSelected] = React.useState(0);
+
+  const totalScore = questions.reduce((prev, cur) => prev + cur.score, 0);
 
   const renderQuestion = () => {
     return (
@@ -43,9 +50,32 @@ const Quizz = ({ questions }) => {
   };
 
   const validateAnswer = (answer) => {
+    let curQst = questions[currentQuestionIdx];
+    let checked = false;
+
+    curQst.answers.forEach((ans) => {
+      if (ans.id === answer.id) {
+        checked = true;
+      }
+
+      setTrackingScore((prev) => ({
+        ...prev,
+        totalScore,
+        answers: {
+          [ans.id]: {
+            ...ans,
+            checked,
+            question: questions[currentQuestionIdx].question,
+            questionIdx: currentQuestionIdx,
+          },
+          ...prev?.answers,
+        },
+      }));
+    });
+
     setCountSelected((prev) => prev + 1);
     if (answer.isCorrect) {
-      addScore(1);
+      addScore(Math.floor(curQst?.score / curQst?.isCorrectCount));
     }
   };
 
@@ -54,7 +84,7 @@ const Quizz = ({ questions }) => {
       <View>
         {questions[currentQuestionIdx].answers.map((answer) => (
           <QuizzItem
-            key={answer._id}
+            key={answer.id}
             answer={answer}
             validateAnswer={validateAnswer}
           />
@@ -80,12 +110,11 @@ const Quizz = ({ questions }) => {
   };
 
   React.useEffect(() => {
-    //   Set questions length to higher component
     setQstLength(questions.length);
   }, []);
 
   React.useEffect(() => {
-    if (countSelected === questions[currentQuestionIdx].goodAnswers) {
+    if (countSelected === questions[currentQuestionIdx].isCorrectCount) {
       setTimeout(() => {
         handleNext();
       }, 100);
@@ -134,7 +163,7 @@ const Quizz = ({ questions }) => {
             }}
           >
             <Text style={{ fontSize: 30, fontWeight: "bold" }}>
-              {score > questions.length / 2 ? "Felicitations !" : "Oops!"}
+              {score > totalScore / 2 ? "Felicitations !" : "Oops!"}
             </Text>
 
             <View
@@ -148,10 +177,7 @@ const Quizz = ({ questions }) => {
               <Text
                 style={{
                   fontSize: 30,
-                  color:
-                    score > questions.length / 2
-                      ? COLORS.success
-                      : COLORS.error,
+                  color: score > totalScore / 2 ? COLORS.success : COLORS.error,
                 }}
               >
                 {score}
@@ -162,23 +188,42 @@ const Quizz = ({ questions }) => {
                   color: COLORS.black,
                 }}
               >
-                / {questions.length}
+                / {totalScore}
               </Text>
             </View>
             {/* Retry Quiz button */}
-            <TouchableOpacity
-              onPress={restartQuizz}
-              style={{
-                backgroundColor: COLORS.accent,
-                padding: 20,
-                width: "100%",
-              }}
-              className="rounded-md"
-            >
-              <Text className="text-neutral-50 text-lg text-center">
-                Recommencer
-              </Text>
-            </TouchableOpacity>
+            <View className="flex flex-row space-x-2 w-11/12">
+              <TouchableOpacity
+                onPress={restartQuizz}
+                style={{
+                  backgroundColor: COLORS.accent,
+                  padding: 10,
+                }}
+                className="rounded-md w-1/2"
+              >
+                <Text className="text-neutral-50 text-sm text-center whitespace-nowrap font-bold">
+                  Recommencer
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  saveScore(score, nav.navigate, restartQuizz);
+                }}
+                style={{
+                  backgroundColor: COLORS.success,
+                  padding: 10,
+                }}
+                className="rounded-md w-1/2 flex flex-row justify-center items-center space-x-2"
+              >
+                {loading ? (
+                  <ActivityIndicator animating={true} color={COLORS.primary} />
+                ) : (
+                  <Text className="text-neutral-50 text-sm text-center whitespace-nowrap font-bold">
+                    Enregistrer
+                  </Text>
+                )}
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>

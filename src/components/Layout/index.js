@@ -88,9 +88,9 @@ const Layout = ({ children }) => {
           />
 
           <TabButton
-            label={"Nouveaute"}
+            label={"Articles"}
             icon={"new"}
-            onPress={() => navigation.navigate("Nouveaute")}
+            onPress={() => navigation.navigate("Article")}
           />
 
           <TabButton

@@ -10,17 +10,8 @@ export default {
         orientation: "portrait",
         icon: "./assets/icon.png",
         userInterfaceStyle: "light",
-        splash: {
-            image: "./assets/splash.png",
-            resizeMode: "contain",
-            backgroundColor: "#0284C7",
-        },
-        updates: {
-            fallbackToCacheTimeout: 0,
-        },
-        assetBundlePatterns: ["**/*"],
-        ios: {
-            supportsTablet: true,
+        runtimeVersion: {
+            policy: "sdkVersion",
         },
         android: {
             adaptiveIcon: {
@@ -29,6 +20,22 @@ export default {
             },
             package: "com.jmndao.OneSchool",
         },
+        ios: {
+            supportsTablet: true,
+        },
+        updates: {
+            fallbackToCacheTimeout: 0,
+            url: "https://u.expo.dev/e2a4cd8d-9e1f-4873-bd5d-c9ec0aec2cb8",
+        },
+
+        splash: {
+            image: "./assets/splash.png",
+            resizeMode: "contain",
+            backgroundColor: "#0284C7",
+        },
+
+        assetBundlePatterns: ["**/*"],
+
         web: {
             favicon: "./assets/favicon.png",
         },

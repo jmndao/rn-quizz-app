@@ -36,9 +36,9 @@ export const menuItems = [{
     },
     {
         id: "30iwe-ei",
-        label: "Nouveaute",
-        slug: "nouveaute",
-        path: "Nouveaute",
+        label: "Articles",
+        slug: "articles",
+        path: "Articles",
         icon: "new",
     },
 ];

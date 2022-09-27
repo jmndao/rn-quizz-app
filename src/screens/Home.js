@@ -1,9 +1,10 @@
 import React from "react";
-import { FlatList, SafeAreaView, TouchableOpacity } from "react-native";
+import { FlatList, SafeAreaView, View, TouchableOpacity } from "react-native";
 import Header from "../components/Header";
 import ThemeCard from "../components/ThemeCard";
-import { themes } from "../data";
 import AntDesignIcons from "react-native-vector-icons/AntDesign";
+import { useFirebase } from "../context/FirebaseContext";
+import Loading from "../components/Loading";
 
 const LeftComponent = ({ navigation }) => {
   return (
@@ -17,30 +18,43 @@ const LeftComponent = ({ navigation }) => {
 };
 
 const Home = (props) => {
+  const { themes, loading, fetchThemes, setCurTheme } = useFirebase();
+
+  React.useState(() => {
+    fetchThemes();
+  }, [fetchThemes]);
+
   return (
-    <SafeAreaView style={{ flex: 1 }} className="bg-white py-2 px-1">
+    <SafeAreaView style={{ flex: 1 }}>
       {/* Header */}
       <Header
         leftComponent={<LeftComponent navigation={props.navigation} />}
         title={props.route.name}
       />
 
-      <FlatList
-        data={themes}
-        keyExtractor={(item) => `${item.id}`}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20 }}
-        renderItem={({ item }) => {
-          return (
-            <ThemeCard
-              item={item}
-              onPress={() =>
-                props.navigation.navigate("Theme", { theme: item })
-              }
-            />
-          );
-        }}
-      />
+      <View className="w-full px-3 py-2" style={{ flex: 1 }}>
+        {loading ? (
+          <Loading />
+        ) : (
+          <FlatList
+            data={themes}
+            keyExtractor={(item) => `${item.slug}`}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 20 }}
+            renderItem={({ item }) => {
+              return (
+                <ThemeCard
+                  item={item}
+                  onPress={() => {
+                    setCurTheme(item);
+                    props.navigation.navigate("Theme", { theme: item.slug });
+                  }}
+                />
+              );
+            }}
+          />
+        )}
+      </View>
     </SafeAreaView>
   );
 };

@@ -1,5 +1,13 @@
 import React from "react";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, onValue, ref, set } from "firebase/database";
+import {
+  getDocs,
+  collection,
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -11,8 +19,11 @@ import {
 import firebaseApp from "../../../firebaseApp";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../constants";
+import { generateFromEmail } from "unique-username-generator";
 
 const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+const rdb = getDatabase(firebaseApp);
 const FirebaseContext = React.createContext(null);
 
 const FirebaseProvider = ({ children }) => {
@@ -21,6 +32,13 @@ const FirebaseProvider = ({ children }) => {
   const [error, setError] = React.useState({ hasErr: false, message: "" });
   const [showErrModal, setShowErrModal] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState(null);
+  const [curTheme, setCurTheme] = React.useState(null);
+  const [trackingScore, setTrackingScore] = React.useState({ answers: [] });
+
+  const [allMyAnswers, setAllMyAnswers] = React.useState({});
+
+  // Datas
+  const [themes, setThemes] = React.useState([]);
 
   const storeHighScore = (userId, score) => {
     const db = getDatabase();
@@ -30,6 +48,7 @@ const FirebaseProvider = ({ children }) => {
     });
   };
 
+  // Firebase register method
   const createUser = async (email, password) => {
     let createdUser;
     setLoading(true);
@@ -50,6 +69,7 @@ const FirebaseProvider = ({ children }) => {
       });
   };
 
+  // Firebase update user info method
   const updateUser = async (user, data) => {
     setLoading(true);
     updateProfile(user, data)
@@ -59,9 +79,13 @@ const FirebaseProvider = ({ children }) => {
       .catch((err) => {
         setError({ hasErr: true, message: err.message });
         setShowErrModal(true);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
+  // Firebase login method
   const login = async (email, password) => {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
@@ -69,6 +93,7 @@ const FirebaseProvider = ({ children }) => {
         // Signed in
         const user = userCred.user;
         setCurrentUser(user);
+        // -----
         setLoading(false);
       })
       .catch((err) => {
@@ -81,6 +106,7 @@ const FirebaseProvider = ({ children }) => {
       });
   };
 
+  // Firebase log out method
   const logout = async () => {
     setLoading(true);
     signOut(auth)
@@ -96,6 +122,66 @@ const FirebaseProvider = ({ children }) => {
         setLoading(false);
       });
   };
+
+  // Firebase fetch themes method from firestore
+  const fetchThemes = React.useCallback(async () => {
+    setLoading(true);
+    getDocs(collection(db, "themes"))
+      .then((themes) => {
+        themes.forEach((doc) => {
+          setThemes((prev) => [doc.data(), ...prev]);
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  const saveScore = React.useCallback(
+    async (score, nav, restartQuizz) => {
+      if (trackingScore.slug && trackingScore.id) {
+        setLoading(true);
+        set(
+          ref(rdb, "users/" + currentUser.uid + "/scores/" + trackingScore.id),
+          {
+            score,
+            ...trackingScore,
+          }
+        )
+          .then(() => {
+            setLoading(false);
+            restartQuizz();
+            nav("Score");
+          })
+          .catch((err) => {
+            nav("Accueil");
+          })
+          .finally(() => {
+            setLoading(false);
+            restartQuizz();
+          });
+      }
+    },
+    [trackingScore]
+  );
+
+  // Fetch my Score
+  const fetchMyAnswersAll = React.useCallback(async () => {
+    setLoading(true);
+    let formattedData;
+    const scoreRef = ref(rdb, "users/" + currentUser.uid + "/scores");
+    onValue(scoreRef, (snapshot) => {
+      const myAnswers = snapshot.val();
+      formattedData = Object.keys(myAnswers).map((id) => {
+        return { id, ...myAnswers[id] };
+      });
+      setAllMyAnswers(formattedData);
+      setLoading(false);
+    });
+  }, [currentUser]);
 
   React.useEffect(() => {
     return onAuthStateChanged(auth, (user) => {
@@ -126,9 +212,18 @@ const FirebaseProvider = ({ children }) => {
         updateUser,
         storeHighScore,
         currentUser,
+        curTheme,
+        setCurTheme,
         loading,
         error,
         resetErrBag,
+        themes,
+        fetchThemes,
+        fetchMyAnswersAll,
+        trackingScore,
+        setTrackingScore,
+        saveScore,
+        allMyAnswers,
       }}
     >
       {children}
@@ -161,7 +256,7 @@ const FirebaseProvider = ({ children }) => {
                 {`Oops ! Connexion echouee.`}
               </Text>
               <Text className="text-gray-50 font-semibold py-1.5 text-lg">
-                {error.message}
+                Veuillez reessayer plutard.
               </Text>
               <TouchableOpacity
                 onPress={closeErrModal}

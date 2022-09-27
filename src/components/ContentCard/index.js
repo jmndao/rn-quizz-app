@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import EntypoIcons from "react-native-vector-icons/Entypo";
 
 const ContentCard = ({ item, onPress }) => {
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -11,7 +12,7 @@ const ContentCard = ({ item, onPress }) => {
       <EntypoIcons name="book" size={22} />
       <View className="tracking-tight leading-relaxed">
         <Text className="font-semibold text-sky-600">{item.title}</Text>
-        <Text className="text-sm text-slate-400">{`Questions: ${item.questions.length}`}</Text>
+        <Text className="text-sm text-slate-400">{`Questions: ${item.qa.length}`}</Text>
       </View>
     </TouchableOpacity>
   );

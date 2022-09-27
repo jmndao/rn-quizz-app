@@ -1,0 +1,7 @@
+- Complement de reponse
+- Trackage de score
+- Revision
+- 
+- -- Order
+- Follow the order in the themes
+- QR Code release for app downloading

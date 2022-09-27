@@ -4,6 +4,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import Header from "../components/Header";
 import { COLORS } from "../constants";
+import _ from "underscore";
 
 const LeftComponent = ({ navigation }) => {
   return (
@@ -46,12 +47,13 @@ const Answer = ({ answer }) => {
 };
 
 const DetailScoreItem = ({ item }) => {
+  let question = item[0].question;
   return (
     <View>
       <View className="bg-sky-600 p-2 rounded-md shadow-lg shadow-gray-800 my-1.5">
-        <Text className="text-gray-50 text-base">{item.text}</Text>
+        <Text className="text-gray-50 text-base">{question}</Text>
       </View>
-      {item.answers.map((answer, idx) => (
+      {item.map((answer, idx) => (
         <Answer key={`ans-4fie-${idx + 14}`} answer={answer} />
       ))}
     </View>
@@ -59,10 +61,12 @@ const DetailScoreItem = ({ item }) => {
 };
 
 const DetailScore = (props) => {
-  const { myAnswers } = props.route.params;
+  const { answers } = props.route.params;
+
+  let newAnswers = _.groupBy(answers, "questionIdx");
 
   return (
-    <View style={{ flex: 1 }} className="p-2">
+    <View style={{ flex: 1 }}>
       {/* Header  */}
       <Header
         leftComponent={<LeftComponent navigation={props.navigation} />}
@@ -70,11 +74,12 @@ const DetailScore = (props) => {
       />
       {/*  */}
       <ScrollView
+        style={{ paddingHorizontal: 10, paddingVertical: 5 }}
         contentContainerStyle={{ paddingBottom: 80 }}
         showsVerticalScrollIndicator={false}
       >
-        {myAnswers.map((myAnswer, idx) => (
-          <DetailScoreItem key={`deeta-i-${idx * 2}`} item={myAnswer} />
+        {Object.keys(newAnswers).map((id) => (
+          <DetailScoreItem key={id} item={newAnswers[id]} />
         ))}
       </ScrollView>
     </View>

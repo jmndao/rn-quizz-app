@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 // Screens Import
 import Score from "../screens/Score";
 import Settings from "../screens/Settings";
-import Nouveaute from "../screens/Nouveaute";
+import Articles from "../screens/Articles";
 //
 import DrawerContent from "../components/DrawerContent";
 //
@@ -68,7 +68,7 @@ const DrawerNavigator = () => {
         }}
       >
         <Drawer.Screen name="Home" component={HomeStackNavigator} />
-        <Drawer.Screen name="Nouveaute" component={Nouveaute} />
+        <Drawer.Screen name="Articles" component={Articles} />
         <Drawer.Screen name="Parametre" component={Settings} />
         <Drawer.Screen name="Score" component={Score} />
       </Drawer.Navigator>

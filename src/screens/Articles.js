@@ -26,16 +26,16 @@ const LeftComponent = ({ navigation }) => {
   );
 };
 
-const Nouveaute = () => {
+const Articles = () => {
   const navigation = useNavigation();
 
   return (
     <Layout>
-      <View className="p-2">
+      <View className="">
         {/* Header  */}
         <Header
           leftComponent={<LeftComponent navigation={navigation} />}
-          title={"Nouveaute"}
+          title={"Articles"}
         />
       </View>
       <View
@@ -51,4 +51,4 @@ const Nouveaute = () => {
   );
 };
 
-export default Nouveaute;
+export default Articles;
