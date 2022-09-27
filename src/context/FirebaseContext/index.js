@@ -1,21 +1,17 @@
 import React from "react";
-import { getDatabase, onValue, ref, set } from "firebase/database";
-import { getDocs, collection, getFirestore } from "firebase/firestore";
+import {  onValue, ref, set } from "firebase/database";
+import { getDocs, collection } from "firebase/firestore";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from "firebase/auth";
-import firebaseApp from "../../../firebaseApp";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../constants";
+import { auth, db, rdb } from "../../../firebaseApp";
 
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
-const rdb = getDatabase(firebaseApp);
 const FirebaseContext = React.createContext(null);
 
 const FirebaseProvider = ({ children }) => {
@@ -33,7 +29,6 @@ const FirebaseProvider = ({ children }) => {
   const [themes, setThemes] = React.useState([]);
 
   const storeHighScore = (userId, score) => {
-    const db = getDatabase();
     const reference = ref(db, "users/" + userId);
     set(reference, {
       highscore: score,
@@ -173,6 +168,7 @@ const FirebaseProvider = ({ children }) => {
   };
 
   React.useEffect(() => {
+    setLoading(true);
     return onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
@@ -182,6 +178,7 @@ const FirebaseProvider = ({ children }) => {
         // User is signed out
         setCurrentUser(null);
       }
+      setLoading(false);
     });
   }, []);
 

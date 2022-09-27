@@ -11,9 +11,6 @@ import { useFirebase } from "../context/FirebaseContext";
 import Loading from "../components/Loading";
 
 const ScoreListItem = ({ item, onPress }) => {
-  let allAnswers = Object.keys(item.answers).map((id) => {
-    return { id, ...item.answers[id] };
-  });
 
   return (
     <View className="bg-sky-600 rounded-md my-2 p-2 shadow-lg shadow-sky-600">
@@ -79,7 +76,7 @@ const Score = () => {
 
   React.useEffect(() => {
     fetchMyAnswersAll();
-  }, [fetchMyAnswersAll]);
+  }, []);
 
   return (
     <Layout>
