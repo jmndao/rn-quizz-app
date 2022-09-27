@@ -4,9 +4,6 @@ import {
   getDocs,
   collection,
   getFirestore,
-  doc,
-  setDoc,
-  getDoc,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -19,7 +16,7 @@ import {
 import firebaseApp from "../../../firebaseApp";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../constants";
-import { generateFromEmail } from "unique-username-generator";
+
 
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
