@@ -99,6 +99,9 @@ const FirebaseProvider = ({ children }) => {
     signOut(auth)
       .then(() => {
         setLoading(false);
+        setThemes([]);
+        setCurTheme(null);
+        setCurrentUser(null);
       })
       .catch((err) => {
         // An error happened.
