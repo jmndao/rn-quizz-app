@@ -5,6 +5,7 @@ import ThemeCard from "../components/ThemeCard";
 import AntDesignIcons from "react-native-vector-icons/AntDesign";
 import { useFirebase } from "../context/FirebaseContext";
 import Loading from "../components/Loading";
+import { useTheme } from "../context/ThemeContext";
 
 const LeftComponent = ({ navigation }) => {
   return (
@@ -20,10 +21,10 @@ const LeftComponent = ({ navigation }) => {
 const Home = (props) => {
   const { themes, loading, setCurTheme } = useFirebase();
 
-  
+  const { curTheme } = useTheme();
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: curTheme.neutral }}>
       {/* Header */}
       <Header
         leftComponent={<LeftComponent navigation={props.navigation} />}

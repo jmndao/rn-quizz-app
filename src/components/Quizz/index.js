@@ -1,10 +1,18 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Modal, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  ScrollView,
+  Platform,
+} from "react-native";
 import { COLORS } from "../../constants";
 import { useFirebase } from "../../context/FirebaseContext";
 import { useQuizz } from "../../context/QuizzContext";
 import QuizzItem from "./QuizzItem";
 import { ActivityIndicator } from "react-native-paper";
+import { useTheme } from "../../context/ThemeContext";
 
 const Quizz = ({ questions, nav }) => {
   const {
@@ -24,6 +32,8 @@ const Quizz = ({ questions, nav }) => {
 
   const totalScore = questions.reduce((prev, cur) => prev + cur.score, 0);
 
+  const { curTheme } = useTheme();
+
   const renderQuestion = () => {
     return (
       <View
@@ -34,7 +44,13 @@ const Quizz = ({ questions, nav }) => {
       >
         {/* Question Counter */}
         <View className="flex-row items-end">
-          <Text className="text-gray-600 text-lg mr-2">
+          <Text
+            className="mr-2"
+            style={{
+              color: curTheme.secondary,
+              fontSize: Platform.OS === "ios" ? 16 : 12,
+            }}
+          >
             {currentQuestionIdx + 1}
           </Text>
           <Text className="text-gray-800 mr-2">/ {questions.length}</Text>
@@ -103,7 +119,12 @@ const Quizz = ({ questions, nav }) => {
         }}
         className="mt-5 rounded-lg"
       >
-        <Text className="text-neutral-50 text-lg text-center">Suivant</Text>
+        <Text
+          className="text-lg text-center"
+          style={{ color: curTheme.neutral }}
+        >
+          Suivant
+        </Text>
       </TouchableOpacity>
     );
   };
@@ -126,40 +147,49 @@ const Quizz = ({ questions, nav }) => {
       style={{
         paddingVertical: 10,
         paddingHorizontal: 8,
+        height: "100%",
         backgroundColor: "transparent",
         position: "relative",
       }}
       contentContainerStyle={{ paddingBottom: 40 }}
       showsVerticalScrollIndicator={false}
     >
-      {/* Question */}
-      {renderQuestion()}
-      {/* Options */}
-      {renderAnswers()}
+      <View style={{ flex: 1 }}>
+        {/* Question */}
+        {renderQuestion()}
+        {/* Options */}
+        {renderAnswers()}
 
-      {/* Next Button */}
-      {renderNextButton()}
+        {/* Next Button */}
+        {renderNextButton()}
+      </View>
 
       {/* Score Modal */}
       <Modal animationType="slide" transparent={true} visible={showScoreModal}>
         <View
           style={{
             flex: 1,
-            backgroundColor: COLORS.accent,
+            backgroundColor: curTheme.primary,
             alignItems: "center",
             justifyContent: "center",
           }}
         >
           <View
             style={{
-              backgroundColor: COLORS.white,
+              backgroundColor: curTheme.neutral,
               width: "90%",
               borderRadius: 20,
               padding: 20,
               alignItems: "center",
             }}
           >
-            <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+            <Text
+              style={{
+                fontSize: 30,
+                fontWeight: "bold",
+                color: curTheme.secondary,
+              }}
+            >
               {score > totalScore / 2 ? "Felicitations !" : "Oops!"}
             </Text>
 
@@ -182,7 +212,7 @@ const Quizz = ({ questions, nav }) => {
               <Text
                 style={{
                   fontSize: 20,
-                  color: COLORS.black,
+                  color: curTheme.secondary,
                 }}
               >
                 / {totalScore}
@@ -193,7 +223,7 @@ const Quizz = ({ questions, nav }) => {
               <TouchableOpacity
                 onPress={restartQuizz}
                 style={{
-                  backgroundColor: COLORS.accent,
+                  backgroundColor: curTheme.primary,
                   padding: 10,
                 }}
                 className="rounded-md w-1/2"
@@ -207,7 +237,7 @@ const Quizz = ({ questions, nav }) => {
                   saveScore(score, nav.navigate, restartQuizz);
                 }}
                 style={{
-                  backgroundColor: COLORS.success,
+                  backgroundColor: curTheme.secondaryHigh,
                   padding: 10,
                 }}
                 className="rounded-md w-1/2 flex flex-row justify-center items-center space-x-2"

@@ -9,29 +9,39 @@ import { COLORS } from "../constants";
 import { useTab } from "../context/TabContext";
 import { useFirebase } from "../context/FirebaseContext";
 import Loading from "../components/Loading";
+import { useTheme } from "../context/ThemeContext";
 
 const ScoreListItem = ({ item, onPress }) => {
+  const { curTheme } = useTheme();
 
   return (
-    <View className="bg-sky-600 rounded-md my-2 p-2 shadow-lg shadow-sky-600">
+    <View
+      className="rounded-md my-2 p-2 shadow-lg shadow-sky-600"
+      style={{ backgroundColor: curTheme.secondary }}
+    >
       <Text className="text-lg font-bold text-gray-50">{item.title}</Text>
 
       <View className="flex-row items-start my-1.5 justify-between">
-        <Text className="text-base font-semibold text-gray-300">{`- ${item.notion}`}</Text>
+        <Text
+          className="text-base font-semibold"
+          style={{ color: curTheme.neutral }}
+        >{`- ${item.notion}`}</Text>
         {item.score > Math.floor(parseInt(item.totalScore) / 2) + 1 ? (
           <View className="flex-row items-center space-x-3">
             <View className="flex-row">
               <Text className="text-green-400 text-xl font-bold">
                 {item.score} /{" "}
               </Text>
-              <Text className="text-base text-gray-50">{item.totalScore}</Text>
+              <Text className="text-base" style={{ color: curTheme.neutral }}>
+                {item.totalScore}
+              </Text>
             </View>
             <Feather name="award" size={22} color={COLORS.success} />
           </View>
         ) : (
           <View className="flex-row items-center space-x-3">
             <View className="flex-row">
-              <Text className="text-red-800 text-xl font-bold">
+              <Text className="text-red-400 text-xl font-bold">
                 {item.score} /{" "}
               </Text>
               <Text className="text-lg text-gray-50">{item.totalScore}</Text>
@@ -41,11 +51,14 @@ const ScoreListItem = ({ item, onPress }) => {
         )}
       </View>
       <TouchableOpacity onPress={onPress} className="flex-row justify-end">
-        <View className="w-40 flex-row justify-center space-x-2 items-center rounded-full bg-gray-800 px-4 py-1">
+        <View
+          className="w-40 flex-row justify-center space-x-2 items-center rounded-2xl px-4 py-1"
+          style={{ backgroundColor: curTheme.secondaryHigh }}
+        >
           <Text className="text-gray-50 text-sm font-semibold">
             Voir Details
           </Text>
-          <Feather name="arrow-right" size={20} color={COLORS.primary} />
+          <Feather name="arrow-right" size={20} color={curTheme.secondary} />
         </View>
       </TouchableOpacity>
     </View>

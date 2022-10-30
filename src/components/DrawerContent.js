@@ -8,6 +8,7 @@ import { COLORS, menuItems } from "../constants";
 import { UserProfile_DEFAULT } from "../data/images";
 import { useTab } from "../context/TabContext";
 import { useFirebase } from "../context/FirebaseContext";
+import { useTheme } from "../context/ThemeContext";
 
 const ItemDrawer = ({
   title,
@@ -17,6 +18,7 @@ const ItemDrawer = ({
   customStyle,
   loading = false,
 }) => {
+  const { curTheme } = useTheme();
   return (
     <TouchableOpacity
       className={`flex flex-row space-x-2 items-center my-0.5 ${
@@ -31,7 +33,9 @@ const ItemDrawer = ({
         <EntypoIcon name={icon} size={22} color={COLORS.primary} />
       )}
       <View>
-        <Text className="font-semibold text-gray-50">{title}</Text>
+        <Text className="font-semibold" style={{ color: curTheme.neutral }}>
+          {title}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -41,13 +45,18 @@ const DrawerContent = ({ navigation }) => {
   const { currentUser, logout, loading } = useFirebase();
   const { curTab, changeTab } = useTab();
 
+  const { curTheme } = useTheme();
+
   const onLogout = () => {
     logout();
     navigation.closeDrawer();
   };
 
   return (
-    <View style={{ flex: 1 }} className="p-2 bg-sky-600">
+    <View
+      style={{ flex: 1, backgroundColor: curTheme.primary }}
+      className="p-2"
+    >
       <DrawerContentScrollView
         scrollEnabled={true}
         contentContainerStyle={{ flex: 1 }}
@@ -72,7 +81,10 @@ const DrawerContent = ({ navigation }) => {
             className="w-10 h-10 rounded-md"
           />
           <View>
-            <Text className="font-semibold text-slate-100 text-base">
+            <Text
+              className="font-semibold text-base"
+              style={{ color: curTheme.neutral }}
+            >
               {currentUser?.displayName ?? currentUser?.email ?? "Anonymous"}
             </Text>
             <Text className="text-slate-200 text-sm">Score total: 202 pts</Text>

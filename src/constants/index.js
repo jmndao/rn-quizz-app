@@ -54,6 +54,7 @@ export const ligthTheme = {
 
     // 60% -> Background color
     neutral: "#f8fafc",
+    neutralHigh: "#cbd5e1",
 };
 
 export const darkTheme = {
@@ -67,4 +68,5 @@ export const darkTheme = {
 
     // 60% -> Background color
     neutral: "#1f2937",
+    neutralHigh: "#cbd5e1",
 };

@@ -16,7 +16,6 @@ export default {
         android: {
             adaptiveIcon: {
                 foregroundImage: "./assets/icon.png",
-                backgroundColor: "#0284C7",
             },
             package: "com.jmndao.OneSchool",
         },

@@ -1,9 +1,11 @@
 import { View } from "react-native";
 import React from "react";
 import { ActivityIndicator } from "react-native-paper";
-import { COLORS } from "../../constants";
+import { useTheme } from "../../context/ThemeContext";
 
 const Loading = () => {
+  const { curTheme } = useTheme();
+
   return (
     <View
       style={{
@@ -15,7 +17,7 @@ const Loading = () => {
       <ActivityIndicator
         animating={true}
         size={"large"}
-        color={COLORS.accent}
+        color={curTheme.primary}
       />
     </View>
   );

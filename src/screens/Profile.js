@@ -13,12 +13,14 @@ import { UserProfile_DEFAULT } from "../data/images";
 import * as Animatable from "react-native-animatable";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
-import { COLORS } from "../constants";
 import { ActivityIndicator } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
+import { useTheme } from "../context/ThemeContext";
 
 const Profile = () => {
   const { currentUser, updateUser, loading } = useFirebase();
+
+  const { curTheme } = useTheme();
 
   const [data, setData] = React.useState({
     displayName: currentUser?.displayName ?? "",
@@ -38,7 +40,7 @@ const Profile = () => {
       <View style={{ alignItems: "center" }}>
         <View
           className="relative w-full h-24"
-          style={{ backgroundColor: COLORS.accent }}
+          style={{ backgroundColor: curTheme.primary }}
         >
           <View className="absolute -bottom-10 left-0 right-0 justify-center items-center">
             <Image
@@ -51,7 +53,10 @@ const Profile = () => {
           </View>
         </View>
         <View className="py-1.5 mt-10 mb-2">
-          <Text className="font-semibold text-lg text-sky-600">
+          <Text
+            className="font-semibold text-lg"
+            style={{ color: curTheme.secondary }}
+          >
             {currentUser?.email}
           </Text>
         </View>
@@ -63,21 +68,24 @@ const Profile = () => {
     return (
       <View>
         <View className="mt-5">
-          <Text className="my-1.5 py-1.5 text-lg font-bold text-gray-800">
+          <Text
+            className="my-1.5 py-1.5 text-lg font-bold"
+            style={{ color: curTheme.secondary }}
+          >
             Changer Mon Profile
           </Text>
 
           <View className="flex-row my-4 border-b border-gray-800 pb-2">
-            <FontAwesome name="user-o" color={COLORS.accent} size={20} />
+            <FontAwesome name="user-o" color={curTheme.primary} size={20} />
             <TextInput
               placeholder={currentUser?.displayName ?? ""}
-              className={`pl-2.5 text-sky-600 outline-none placeholder-gray-700 ${
+              className={`pl-2.5 outline-none placeholder-gray-700 ${
                 Platform.OS === "ios" ? "mt-0" : "-mt-3"
               }`}
               autoCapitalize="none"
               onChangeText={(val) => handleChange("displayName", val)}
               // onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
-              style={{ flex: 1 }}
+              style={{ flex: 1, color: curTheme.secondary }}
             />
             {data?.displayName >= 6 ? (
               <Animatable.View animation="bounceIn">
@@ -88,20 +96,20 @@ const Profile = () => {
         </View>
 
         <View className="flex-row my-4 border-b border-gray-800 pb-2">
-          <Feather name="at-sign" color={COLORS.accent} size={20} />
+          <Feather name="at-sign" color={curTheme.primary} size={20} />
           <TextInput
             placeholder={
               currentUser?.isAnonymous
                 ? "Utilisateur Anonyme"
                 : currentUser.email
             }
-            className={`pl-2.5 text-sky-600 outline-none placeholder-gray-700 ${
+            className={`pl-2.5 outline-none placeholder-gray-700 ${
               Platform.OS === "ios" ? "mt-0" : "-mt-3"
             }`}
             autoCapitalize="none"
             onChangeText={(val) => handleChange("email", val)}
             // onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
-            style={{ flex: 1 }}
+            style={{ flex: 1, color: curTheme.secondary }}
           />
           {currentUser?.emailVerified ? (
             <Animatable.View animation="bounceIn">
@@ -115,13 +123,18 @@ const Profile = () => {
           onPress={onSubmit}
         >
           <LinearGradient
-            colors={["#38BDF8", "#0284C7"]}
+            colors={[curTheme.primary, curTheme.primary]}
             className="w-full h-14 items-center justify-center rounded-md"
           >
             {loading ? (
-              <ActivityIndicator animating={true} color={COLORS.primary} />
+              <ActivityIndicator animating={true} color={curTheme.neutral} />
             ) : (
-              <Text className="text-gray-50 font-semibold text-lg">Editer</Text>
+              <Text
+                className="font-semibold text-lg"
+                style={{ color: curTheme.neutral }}
+              >
+                Editer
+              </Text>
             )}
           </LinearGradient>
         </TouchableOpacity>

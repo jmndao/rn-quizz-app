@@ -16,6 +16,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { useFirebase } from "../context/FirebaseContext";
 import { COLORS } from "../constants";
 import { ActivityIndicator } from "react-native-paper";
+import { useTheme } from "../context/ThemeContext";
 
 const Login = ({ navigation }) => {
   const [data, setData] = React.useState({
@@ -28,6 +29,7 @@ const Login = ({ navigation }) => {
   });
 
   const { login, loading, error } = useFirebase();
+  const { curTheme } = useTheme();
 
   const textInputChange = (val) => {
     if (val.trim().length >= 4) {
@@ -89,8 +91,8 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.accent }}>
-      <StatusBar backgroundColor={COLORS.accent} barStyle="light-content" />
+    <View style={{ flex: 1, backgroundColor: curTheme.primary }}>
+      <StatusBar backgroundColor={curTheme.primary} barStyle="light-content" />
       <View style={styles.header}>
         <Text style={styles.text_header}>Learning DEC</Text>
       </View>
@@ -99,13 +101,15 @@ const Login = ({ navigation }) => {
         style={[
           styles.footer,
           {
-            backgroundColor: COLORS.primary,
+            backgroundColor: curTheme.neutral,
           },
         ]}
       >
-        <Text className="text-gray-800">Email</Text>
+        <Text style={[styles.text_footer, { color: curTheme.secondary }]}>
+          Email
+        </Text>
         <View style={styles.action}>
-          <FontAwesome name="user-o" color={COLORS.accent} size={20} />
+          <FontAwesome name="user-o" color={curTheme.primary} size={20} />
           <TextInput
             placeholder="Email"
             style={[styles.textInput]}
@@ -129,13 +133,16 @@ const Login = ({ navigation }) => {
         )}
 
         <Text
-          style={[styles.text_footer, { marginTop: 35 }]}
+          style={[
+            styles.text_footer,
+            { marginTop: 35, color: curTheme.secondary },
+          ]}
           className="text-gray-800"
         >
           Mot de Passe
         </Text>
         <View style={styles.action}>
-          <Feather name="lock" color={COLORS.accent} size={20} />
+          <Feather name="lock" color={curTheme.primary} size={20} />
           <TextInput
             placeholder="Mot de Passe"
             secureTextEntry={data.secureTextEntry ? true : false}
@@ -161,24 +168,24 @@ const Login = ({ navigation }) => {
         )}
 
         <TouchableOpacity>
-          <Text style={{ color: COLORS.accent, marginTop: 15 }}>
+          <Text style={{ color: curTheme.primary, marginTop: 15 }}>
             Forgot password?
           </Text>
         </TouchableOpacity>
         <View style={styles.button}>
           <TouchableOpacity style={styles.signIn} onPress={onSubmit}>
             <LinearGradient
-              colors={["#38BDF8", "#0284C7"]}
+              colors={[curTheme.primary, curTheme.secondaryHigh]}
               style={styles.signIn}
             >
               {loading ? (
-                <ActivityIndicator animating={true} color={COLORS.primary} />
+                <ActivityIndicator animating={true} color={curTheme.primary} />
               ) : (
                 <Text
                   style={[
                     styles.textSign,
                     {
-                      color: "#fff",
+                      color: curTheme.neutral,
                     },
                   ]}
                 >
@@ -193,7 +200,7 @@ const Login = ({ navigation }) => {
             style={[
               styles.signIn,
               {
-                borderColor: COLORS.accent,
+                borderColor: curTheme.primary,
                 borderWidth: 1,
                 marginTop: 15,
               },
@@ -203,7 +210,7 @@ const Login = ({ navigation }) => {
               style={[
                 styles.textSign,
                 {
-                  color: COLORS.accent,
+                  color: curTheme.primary,
                 },
               ]}
             >
@@ -260,7 +267,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: Platform.OS === "ios" ? 0 : -12,
     paddingLeft: 10,
-    color: `${COLORS.accent}`,
+    color: "red",
   },
   errorMsg: {
     color: "#FF0000",

@@ -1,10 +1,13 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLORS } from "../../../constants";
+import { useTheme } from "../../../context/ThemeContext";
 
 const QuizzItem = ({ answer, validateAnswer }) => {
   const selected = React.useRef(false);
+
+  const { curTheme } = useTheme();
 
   const renderBorderColor = () => {
     if (selected.current) {
@@ -71,19 +74,27 @@ const QuizzItem = ({ answer, validateAnswer }) => {
     <TouchableOpacity
       onPress={handleValidation}
       style={{
-        borderWidth: 3,
+        borderWidth: 2,
         borderColor: renderBorderColor(),
         backgroundColor: renderBgColor(),
-        height: 60,
+        height: "auto",
+        minHeight: Platform.OS === "ios" ? 60 : 40,
         borderRadius: 20,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        paddingHorizontal: 20,
+        paddingHorizontal: Platform.OS === "ios" ? 18 : 10,
         marginVertical: 10,
       }}
     >
-      <Text className="text-gray-800 text-lg">{answer.option}</Text>
+      <Text
+        style={{
+          color: curTheme.secondary,
+          fontSize: Platform.OS === "ios" ? 14 : 12,
+        }}
+      >
+        {answer.option}
+      </Text>
 
       {/* Show Check Or Cross Icon based on correct answer*/}
       {selected.current ? renderCrossOrCheck() : null}

@@ -17,6 +17,7 @@ import ControleQualiteImg from "../data/images/ControleQualite.jpg";
 import ExerciceProfessionImg from "../data/images/exercice-de-la-profession.jpg";
 import EthiqueDeontologieImg from "../data/images/ethique-et-deontologie.jpeg";
 import { useFirebase } from "../context/FirebaseContext";
+import { useTheme } from "../context/ThemeContext";
 
 const images = {
   ResponsableProfessionel: ResponsableProfessionelImg,
@@ -38,6 +39,8 @@ const LeftComponent = ({ navigation }) => {
 
 const Theme = (props) => {
   const { curTheme, setTrackingScore } = useFirebase();
+
+  const { curTheme: styleCurTheme } = useTheme();
 
   let totalScore = 0;
   curTheme.notions.forEach((notion) => {
@@ -67,10 +70,20 @@ const Theme = (props) => {
 
         {/* Description */}
         <View className="mb-2">
-          <Text className="text-sky-600 font-bold text-sm pb-2">
+          <Text
+            className="font-bold text-sm pb-2"
+            style={{ color: styleCurTheme.primary }}
+          >
             Sens & Portee d'etude
           </Text>
-          <Text style={{ fontSize: Platform.OS === 'ios' ? 14 : 12}}>{curTheme.description ?? "Description courte du theme."}</Text>
+          <Text
+            style={{
+              fontSize: Platform.OS === "ios" ? 14 : 12,
+              color: styleCurTheme.secondary,
+            }}
+          >
+            {curTheme.description ?? "Description courte du theme."}
+          </Text>
         </View>
 
         {/* Image Card */}
@@ -83,14 +96,25 @@ const Theme = (props) => {
             className="absolute inset-0 w-full h-full rounded-md"
             resizeMode="cover"
           />
-          <View className="bg-sky-700 opacity-70 absolute inset-0 w-full h-full rounded-md" />
+          <View
+            className="opacity-60 absolute inset-0 w-full h-full rounded-md"
+            style={{ backgroundColor: styleCurTheme.primary }}
+          />
 
           <View className="py-3 px-4">
-            <Text className="text-white font-extrabold text-xl">
+            <Text
+              className="font-extrabold text-xl"
+              style={{ color: styleCurTheme.neutral }}
+            >
               {totalScore}
             </Text>
-            <Text className="text-white font-semibold text-sm">Scores</Text>
-            <Text className="text-sky-200 font-extrabold">{`${
+            <Text
+              className="font-semibold text-sm"
+              style={{ color: styleCurTheme.neutral }}
+            >
+              Scores
+            </Text>
+            <Text className="text-red-200 font-extrabold">{`${
               totalQuestions ?? 0
             } Questions`}</Text>
           </View>
@@ -98,7 +122,10 @@ const Theme = (props) => {
 
         {/* Details Contenu */}
         <View className="mb-2">
-          <Text className="text-sky-600 font-bold text-sm pb-2">
+          <Text
+            className="font-bold text-sm pb-2"
+            style={{ color: styleCurTheme.primary }}
+          >
             Notions & Contenus ({curTheme.notions.length ?? 0})
           </Text>
         </View>

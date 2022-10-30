@@ -15,9 +15,11 @@ import Feather from "react-native-vector-icons/Feather";
 import { ActivityIndicator } from "react-native-paper";
 import { COLORS } from "../constants";
 import { useFirebase } from "../context/FirebaseContext";
+import { useTheme } from "../context/ThemeContext";
 
 const Register = ({ navigation }) => {
   const { loading, createUser } = useFirebase();
+  const { curTheme } = useTheme();
 
   const [data, setData] = React.useState({
     email: "",
@@ -75,8 +77,8 @@ const Register = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.accent }}>
-      <StatusBar backgroundColor={COLORS.accent} barStyle="light-content" />
+    <View style={{ flex: 1, backgroundColor: curTheme.primary }}>
+      <StatusBar backgroundColor={curTheme.primary} barStyle="light-content" />
 
       <View style={styles.header}>
         <Text style={styles.text_header}>Creer Mon Compte!</Text>
@@ -90,7 +92,9 @@ const Register = ({ navigation }) => {
         <ScrollView>
           {/* Email Input */}
           <View className="my-1.5">
-            <Text className="text-gray-800 text-lg">Email</Text>
+            <Text className="text-lg" style={{ color: curTheme.secondary }}>
+              Email
+            </Text>
             <View style={styles.action}>
               <Feather name="at-sign" color="#05375a" size={20} />
               <TextInput
@@ -114,7 +118,9 @@ const Register = ({ navigation }) => {
 
           {/* Password Input */}
           <View className="my-1.5">
-            <Text className="text-gray-800 text-lg">Mot de Passe</Text>
+            <Text className="text-lg" style={{ color: curTheme.secondary }}>
+              Mot de Passe
+            </Text>
             <View style={styles.action}>
               <Feather name="lock" color="#05375a" size={20} />
               <TextInput
@@ -136,7 +142,7 @@ const Register = ({ navigation }) => {
 
           {/* Confirmation Password Input */}
           <View className="my-1.5">
-            <Text className="text-gray-800 text-lg">
+            <Text className="text-lg" style={{ color: curTheme.secondary }}>
               Confirmation Mot de Passe
             </Text>
             <View style={styles.action}>
@@ -161,7 +167,7 @@ const Register = ({ navigation }) => {
           <View style={styles.button}>
             <TouchableOpacity style={styles.signIn} onPress={onCreate}>
               <LinearGradient
-                colors={["#38BDF8", "#0284C7"]}
+                colors={[curTheme.primary, curTheme.secondaryHigh]}
                 style={styles.signIn}
               >
                 {loading ? (
@@ -171,7 +177,7 @@ const Register = ({ navigation }) => {
                     style={[
                       styles.textSign,
                       {
-                        color: "#fff",
+                        color: curTheme.neutral,
                       },
                     ]}
                   >
@@ -186,7 +192,7 @@ const Register = ({ navigation }) => {
               style={[
                 styles.signIn,
                 {
-                  borderColor: COLORS.accent,
+                  borderColor: curTheme.primary,
                   borderWidth: 1,
                   marginTop: 15,
                 },
@@ -196,7 +202,7 @@ const Register = ({ navigation }) => {
                 style={[
                   styles.textSign,
                   {
-                    color: COLORS.accent,
+                    color: curTheme.primary,
                   },
                 ]}
               >
@@ -247,7 +253,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: Platform.OS === "ios" ? 0 : -5,
     paddingLeft: 10,
-    color: "#05375a",
+    color: "red",
   },
   button: {
     alignItems: "center",

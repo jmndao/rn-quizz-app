@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Layout from "../components/Layout";
 import { COLORS } from "../constants";
 import { useTab } from "../context/TabContext";
+import { useTheme } from "../context/ThemeContext";
 
 const LeftComponent = ({ navigation }) => {
   const { changeTab } = useTab();
@@ -29,6 +30,8 @@ const LeftComponent = ({ navigation }) => {
 const Articles = () => {
   const navigation = useNavigation();
 
+  const { curTheme } = useTheme();
+
   return (
     <Layout>
       <View className="">
@@ -42,8 +45,11 @@ const Articles = () => {
         className="p-2"
         style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
       >
-        <Entypo name="new" size={40} color={COLORS.secondary} />
-        <Text className="text-gray-800 font-light text-center text-3xl py-1.5">
+        <Entypo name="new" size={40} color={curTheme.secondaryHigh} />
+        <Text
+          className="font-light text-center text-xl py-1.5"
+          style={{ color: curTheme.secondary }}
+        >
           There is no new content for the moment.
         </Text>
       </View>

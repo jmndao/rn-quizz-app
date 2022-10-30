@@ -10,9 +10,12 @@ import {
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { useTab } from "../../context/TabContext";
+import { useTheme } from "../../context/ThemeContext";
 
 const TabButton = ({ label, icon, onPress }) => {
   const route = useRoute();
+
+  const { curTheme } = useTheme();
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -26,13 +29,13 @@ const TabButton = ({ label, icon, onPress }) => {
         <EntypoIcon
           name={icon}
           size={Platform.OS === "ios" ? 22 : 18}
-          color={route.name === label ? "#0369A1" : "#1E293B"}
+          color={route.name === label ? curTheme.primary : curTheme.secondary}
         />
         <Text
-          className={`${
-            route.name === label ? "text-sky-700" : "text-slate-800"
-          }`}
-          style={{ fontSize: 10 }}
+          style={{
+            fontSize: 10,
+            color: route.name === label ? curTheme.primary : curTheme.secondary,
+          }}
         >
           {label}
         </Text>
@@ -45,13 +48,18 @@ const Layout = ({ children }) => {
   const navigation = useNavigation();
   const { changeTab } = useTab();
 
+  const { curTheme } = useTheme();
+
   const navigate = (path) => {
     changeTab(path);
     navigation.navigate(path);
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} className="relative w-full">
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: curTheme.neutral }}
+      className="relative w-full"
+    >
       {children}
       {/* Bottom Tabs */}
       <View
@@ -78,8 +86,8 @@ const Layout = ({ children }) => {
 
         {/* Tabs */}
         <View
-          style={{ flex: 1 }}
-          className="flex-row justify-around p-1 rounded-t-3xl shadow-xl shadow-neutral-700 bg-white"
+          style={{ flex: 1, backgroundColor: curTheme.neutral }}
+          className="flex-row justify-around p-1 rounded-t-3xl shadow-xl shadow-neutral-700"
         >
           <TabButton
             label={"Accueil"}
@@ -96,7 +104,7 @@ const Layout = ({ children }) => {
           <TabButton
             label={"Articles"}
             icon={"new"}
-            onPress={() => navigation.navigate("Article")}
+            onPress={() => navigation.navigate("Articles")}
           />
 
           <TabButton
