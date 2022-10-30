@@ -31,12 +31,11 @@ const ThemeCard = ({ item, onPress }) => {
       <View className="absolute inset-0 w-full h-full px-1.5 py-2 z-10">
         {/* Title */}
         <View style={{ alignItems: "flex-end" }}>
-          <Text
-            className="text-white text-sm font-semibold bg-sky-600 rounded-full px-4 py-0.5"
-            style={{ borderRadius: 50 }}
-          >
-            {item.title}
-          </Text>
+          <View className="h-auto w-auto bg-sky-600 rounded-full px-4 py-0.5">
+            <Text className="text-white text-sm font-semibold">
+              {item.title}
+            </Text>
+          </View>
         </View>
         {/* Description */}
         <View className="mt-2.5 mb-1">

@@ -28,17 +28,16 @@ const Quizz = ({ questions, nav }) => {
     return (
       <View
         style={{
+          flex: 1,
           marginVertical: 20,
         }}
       >
         {/* Question Counter */}
         <View className="flex-row items-end">
-          <Text className="text-gray-600 text-lg opacity-60 mr-2">
+          <Text className="text-gray-600 text-lg mr-2">
             {currentQuestionIdx + 1}
           </Text>
-          <Text className="text-gray-800 opacity-60 mr-2">
-            / {questions.length}
-          </Text>
+          <Text className="text-gray-800 mr-2">/ {questions.length}</Text>
         </View>
 
         {/* Question */}
@@ -125,7 +124,6 @@ const Quizz = ({ questions, nav }) => {
   return (
     <ScrollView
       style={{
-        flex: 1,
         paddingVertical: 10,
         paddingHorizontal: 8,
         backgroundColor: "transparent",
@@ -136,7 +134,6 @@ const Quizz = ({ questions, nav }) => {
     >
       {/* Question */}
       {renderQuestion()}
-
       {/* Options */}
       {renderAnswers()}
 

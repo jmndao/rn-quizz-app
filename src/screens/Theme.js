@@ -1,5 +1,12 @@
 import React from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ContentCard from "../components/ContentCard";
 import Header from "../components/Header";
@@ -63,11 +70,14 @@ const Theme = (props) => {
           <Text className="text-sky-600 font-bold text-sm pb-2">
             Sens & Portee d'etude
           </Text>
-          <Text>{curTheme.description ?? "Description courte du theme."}</Text>
+          <Text style={{ fontSize: Platform.OS === 'ios' ? 14 : 12}}>{curTheme.description ?? "Description courte du theme."}</Text>
         </View>
 
         {/* Image Card */}
-        <View className="relative max-h-64 rounded-md my-2 shadow-lg shadow-sky-900">
+        <View
+          className="relative rounded-md my-2 shadow-lg shadow-sky-900"
+          style={{ maxHeight: Platform.OS === "ios" ? 256 : 180 }}
+        >
           <Image
             source={images[curTheme.imageUrl]}
             className="absolute inset-0 w-full h-full rounded-md"

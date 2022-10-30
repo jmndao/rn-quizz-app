@@ -18,14 +18,12 @@ const LeftComponent = ({ navigation }) => {
 };
 
 const Home = (props) => {
-  const { themes, loading, fetchThemes, setCurTheme } = useFirebase();
+  const { themes, loading, setCurTheme } = useFirebase();
 
-  React.useEffect(() => {
-    fetchThemes();
-  }, []);
+  
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       {/* Header */}
       <Header
         leftComponent={<LeftComponent navigation={props.navigation} />}
@@ -55,7 +53,7 @@ const Home = (props) => {
           />
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

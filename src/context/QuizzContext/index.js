@@ -1,15 +1,18 @@
 import React from "react";
 import { Animated, View } from "react-native";
 import { COLORS } from "../../constants";
+import { useFirebase } from "../FirebaseContext";
 
 const QuizzContext = React.createContext(null);
 
 const QuizzProvider = ({ children }) => {
+  const { fetchThemes } = useFirebase();
+
   const [qstLength, setQstLength] = React.useState(0);
   const [score, setScore] = React.useState(0);
   const [currentQuestionIdx, setCurrentQuestionIdx] = React.useState(0);
   const [showScoreModal, setShowScoreModal] = React.useState(false);
-  const [progress] = React.useState(new Animated.Value(0));
+  const [progress, setProgress] = React.useState(new Animated.Value(0));
 
   const handleNext = () => {
     if (currentQuestionIdx == qstLength - 1) {
@@ -45,21 +48,26 @@ const QuizzProvider = ({ children }) => {
     outputRange: ["0%", "100%"],
   });
 
+  React.useEffect(() => {
+    fetchThemes();
+    setProgress(new Animated.Value(0));
+  }, []);
+
   const renderProgressBar = () => {
     return (
       <View
         style={{
           width: "100%",
-          height: 14,
-          borderRadius: 14,
+          height: 10,
+          borderRadius: 10,
           backgroundColor: "#00000020",
         }}
       >
         <Animated.View
           style={[
             {
-              height: 14,
-              borderRadius: 14,
+              height: 10,
+              borderRadius: 10,
               backgroundColor: COLORS.accent,
             },
             {

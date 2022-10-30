@@ -42,3 +42,29 @@ export const menuItems = [{
         icon: "new",
     },
 ];
+
+export const ligthTheme = {
+    // 10% -> Brand Color
+    primary: "#f20606",
+    primaryOpacity70: "rgba(242,6,6,255, 0.7)",
+
+    // 30% -> Characters color
+    secondary: "#1f2937",
+    secondaryHigh: "#4b5563",
+
+    // 60% -> Background color
+    neutral: "#f8fafc",
+};
+
+export const darkTheme = {
+    // 10% -> Brand Color
+    primary: "#f20606",
+    primaryOpacity70: "rgba(242,6,6,255, 0.7)",
+
+    // 30% -> Characters color
+    secondary: "#f8fafc",
+    secondaryHigh: "##cbd5e1",
+
+    // 60% -> Background color
+    neutral: "#1f2937",
+};

@@ -1,7 +1,13 @@
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import EntypoIcon from "react-native-vector-icons/Entypo";
-import { Text, TouchableOpacity, View } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  View,
+  Platform,
+} from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { useTab } from "../../context/TabContext";
 
@@ -19,7 +25,7 @@ const TabButton = ({ label, icon, onPress }) => {
       >
         <EntypoIcon
           name={icon}
-          size={22}
+          size={Platform.OS === "ios" ? 22 : 18}
           color={route.name === label ? "#0369A1" : "#1E293B"}
         />
         <Text
@@ -45,12 +51,12 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <View style={{ flex: 1 }} className="relative w-full">
+    <SafeAreaView style={{ flex: 1 }} className="relative w-full">
       {children}
       {/* Bottom Tabs */}
       <View
         style={{
-          height: 70,
+          height: Platform.OS === "ios" ? 70 : 50,
         }}
         className="absolute bottom-0 left-0 w-full"
       >
@@ -64,7 +70,7 @@ const Layout = ({ children }) => {
             top: -10,
             left: 0,
             right: 0,
-            height: 70,
+            height: Platform.OS === "ios" ? 70 : 50,
             borderTopLeftRadius: 15,
             borderTopRightRadius: 15,
           }}
@@ -100,7 +106,7 @@ const Layout = ({ children }) => {
           />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

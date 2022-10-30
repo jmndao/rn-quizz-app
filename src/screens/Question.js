@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import { SafeAreaView, TouchableOpacity, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Header from "../components/Header";
 import Quizz from "../components/Quizz";
@@ -24,18 +24,18 @@ const Question = (props) => {
   const { renderProgressBar } = useQuizz();
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       {/* Header */}
       <Header
         leftComponent={<LeftComponent navigation={props.navigation} />}
         title={`${content.title}`}
       />
-      <View className="py-2 px-3">
+      <View className="px-3 my-2">
         {renderProgressBar()}
         {/* Quizz */}
         <Quizz questions={content.qa} nav={navigate} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

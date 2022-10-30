@@ -1,5 +1,5 @@
-- Complement de reponse
-- Trackage de score
+- "Complement de reponse"
+- Score tracking
 - Revision
 - 
 - -- Order
