@@ -20,8 +20,8 @@ const ThemeProvider = ({ children }) => {
   }, [curThemeValue]);
 
   React.useEffect(() => {
-    setCurTheme(scheme === "dark" ? darkTheme : ligthTheme);
-  }, [scheme]);
+    setCurTheme(curThemeValue === "dark" ? darkTheme : ligthTheme);
+  }, [curThemeValue]);
 
   return (
     <ThemeContext.Provider
