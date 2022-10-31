@@ -14,12 +14,14 @@ import Loading from "../components/Loading";
 import { useTheme } from "../context/ThemeContext";
 
 const LeftComponent = ({ navigation }) => {
+  const { curTheme } = useTheme();
+
   return (
     <TouchableOpacity
       className="rounded-md p-2 border border-slate-200"
       onPress={() => navigation.openDrawer()}
     >
-      <AntDesignIcons name="menu-fold" size={22} color="#334155" />
+      <AntDesignIcons name="menu-fold" size={22} color={curTheme.secondary} />
     </TouchableOpacity>
   );
 };

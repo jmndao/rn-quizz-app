@@ -1,5 +1,11 @@
 import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 import Header from "../components/Header";
@@ -66,7 +72,7 @@ const DetailScore = (props) => {
   let newAnswers = _.groupBy(answers, "questionIdx");
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       {/* Header  */}
       <Header
         leftComponent={<LeftComponent navigation={props.navigation} />}
@@ -82,7 +88,7 @@ const DetailScore = (props) => {
           <DetailScoreItem key={id} item={newAnswers[id]} />
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

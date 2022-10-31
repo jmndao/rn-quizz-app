@@ -16,10 +16,12 @@ const ScoreListItem = ({ item, onPress }) => {
 
   return (
     <View
-      className="rounded-md my-2 p-2 shadow-lg shadow-sky-600"
-      style={{ backgroundColor: curTheme.secondary }}
+      className="rounded-md my-2 p-2 shadow-lg shadow-black"
+      style={{ backgroundColor: curTheme.secondaryHigh }}
     >
-      <Text className="text-lg font-bold text-gray-50">{item.title}</Text>
+      <Text className="text-lg font-bold" style={{ color: curTheme.neutral }}>
+        {item.title}
+      </Text>
 
       <View className="flex-row items-start my-1.5 justify-between">
         <Text
@@ -44,7 +46,9 @@ const ScoreListItem = ({ item, onPress }) => {
               <Text className="text-red-400 text-xl font-bold">
                 {item.score} /{" "}
               </Text>
-              <Text className="text-lg text-gray-50">{item.totalScore}</Text>
+              <Text className="text-lg" style={{ color: curTheme.secondary }}>
+                {item.totalScore}
+              </Text>
             </View>
             <Feather name="frown" size={22} color={"#991B1B"} />
           </View>
@@ -53,12 +57,19 @@ const ScoreListItem = ({ item, onPress }) => {
       <TouchableOpacity onPress={onPress} className="flex-row justify-end">
         <View
           className="w-40 flex-row justify-center space-x-2 items-center rounded-2xl px-4 py-1"
-          style={{ backgroundColor: curTheme.secondaryHigh }}
+          style={{ backgroundColor: curTheme.secondary }}
         >
-          <Text className="text-gray-50 text-sm font-semibold">
+          <Text
+            className="text-sm font-semibold"
+            style={{ color: curTheme.neutral }}
+          >
             Voir Details
           </Text>
-          <Feather name="arrow-right" size={20} color={curTheme.secondary} />
+          <Feather
+            name="arrow-right"
+            size={20}
+            color={curTheme.secondaryHigh}
+          />
         </View>
       </TouchableOpacity>
     </View>
@@ -67,6 +78,7 @@ const ScoreListItem = ({ item, onPress }) => {
 
 const LeftComponent = ({ navigation }) => {
   const { changeTab } = useTab();
+  const { curTheme } = useTheme();
 
   const navigate = () => {
     changeTab("Accueil");
@@ -78,7 +90,11 @@ const LeftComponent = ({ navigation }) => {
       className="rounded-md p-2 border border-gray-200"
       onPress={() => navigate()}
     >
-      <Ionicons name="ios-return-up-back" size={26} color="#334155" />
+      <Ionicons
+        name="ios-return-up-back"
+        size={26}
+        color={curTheme.secondary}
+      />
     </TouchableOpacity>
   );
 };
