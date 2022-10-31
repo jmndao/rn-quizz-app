@@ -1,5 +1,11 @@
 import React from "react";
-import { FlatList, SafeAreaView, View, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  SafeAreaView,
+  View,
+  RefreshControl,
+  TouchableOpacity,
+} from "react-native";
 import Header from "../components/Header";
 import ThemeCard from "../components/ThemeCard";
 import AntDesignIcons from "react-native-vector-icons/AntDesign";
@@ -19,7 +25,15 @@ const LeftComponent = ({ navigation }) => {
 };
 
 const Home = (props) => {
-  const { themes, loading, setCurTheme } = useFirebase();
+  const { themes, loading, fetchThemes, setCurTheme } = useFirebase();
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    await fetchThemes();
+    setRefreshing(false);
+  }, [fetchThemes]);
 
   const { curTheme } = useTheme();
 
@@ -38,6 +52,9 @@ const Home = (props) => {
           <FlatList
             data={themes}
             keyExtractor={(item) => `${item.slug}`}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 20 }}
             renderItem={({ item }) => {

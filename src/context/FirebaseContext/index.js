@@ -1,5 +1,5 @@
 import React from "react";
-import {  onValue, ref, set } from "firebase/database";
+import { onValue, ref, set } from "firebase/database";
 import { getDocs, collection } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
@@ -115,6 +115,7 @@ const FirebaseProvider = ({ children }) => {
 
   // Firebase fetch themes method from firestore
   const fetchThemes = async () => {
+    setThemes([]);
     setLoading(true);
     getDocs(collection(db, "themes"))
       .then((themes) => {
