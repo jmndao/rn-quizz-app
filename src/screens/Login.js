@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     paddingHorizontal: 20,
-    paddingBottom: 50,
+    paddingBottom: Platform.OS === "ios" ? 40 : 20,
   },
   footer: {
     flex: 3,
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   },
   text_footer: {
     color: "#05375a",
-    fontSize: 18,
+    fontSize: Platform.OS === "ios" ? 16 : 12,
   },
   action: {
     flexDirection: "row",
@@ -271,21 +271,21 @@ const styles = StyleSheet.create({
   },
   errorMsg: {
     color: "#FF0000",
-    fontSize: 14,
+    fontSize: Platform.OS === "ios" ? 14 : 10,
   },
   button: {
     alignItems: "center",
-    marginTop: 50,
+    marginTop: Platform.OS === "ios" ? 50 : 35,
   },
   signIn: {
     width: "100%",
-    height: 50,
+    height: Platform.OS === "ios" ? 50 : 35,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
   },
   textSign: {
-    fontSize: 18,
+    fontSize: Platform.OS === "ios" ? 16 : 12,
     fontWeight: "bold",
   },
 });
