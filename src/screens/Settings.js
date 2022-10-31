@@ -25,7 +25,7 @@ const Settings = () => {
 
   return (
     <Layout>
-      <View style={{ flex: 1 }} className="p-2">
+      <View style={{ flex: 1 }}>
         {/* Header  */}
         <Header
           leftComponent={<LeftComponent navigation={navigation} />}
