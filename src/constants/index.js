@@ -64,7 +64,7 @@ export const darkTheme = {
 
     // 30% -> Characters color
     secondary: "#f8fafc",
-    secondaryHigh: "##cbd5e1",
+    secondaryHigh: "#cbd5e1",
 
     // 60% -> Background color
     neutral: "#1f2937",

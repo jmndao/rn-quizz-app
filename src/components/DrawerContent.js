@@ -4,7 +4,7 @@ import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { ActivityIndicator, Drawer } from "react-native-paper";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import Divider from "../shared/Divider";
-import { COLORS, menuItems } from "../constants";
+import { menuItems } from "../constants";
 import { UserProfile_DEFAULT } from "../data/images";
 import { useTab } from "../context/TabContext";
 import { useFirebase } from "../context/FirebaseContext";
@@ -21,16 +21,17 @@ const ItemDrawer = ({
   const { curTheme } = useTheme();
   return (
     <TouchableOpacity
-      className={`flex flex-row space-x-2 items-center my-0.5 ${
-        isFocused ? "bg-gray-800 opacity-70" : "bg-transparent"
-      } rounded-md py-2 px-2.5`}
+      className={`flex flex-row space-x-2 items-center my-0.5 rounded-md py-2 px-2.5`}
       onPress={onPress}
-      style={{ ...customStyle }}
+      style={{
+        ...customStyle,
+        backgroundColor: isFocused ? curTheme.secondary : "transparent",
+      }}
     >
       {loading ? (
-        <ActivityIndicator animating={true} color={COLORS.primary} />
+        <ActivityIndicator animating={true} color={curTheme.neutral} />
       ) : (
-        <EntypoIcon name={icon} size={22} color={COLORS.primary} />
+        <EntypoIcon name={icon} size={22} color={curTheme.neutral} />
       )}
       <View>
         <Text className="font-semibold" style={{ color: curTheme.neutral }}>
@@ -79,6 +80,7 @@ const DrawerContent = ({ navigation }) => {
           <Image
             source={currentUser?.photoURL ?? UserProfile_DEFAULT}
             className="w-10 h-10 rounded-md"
+            style={{ tintColor: curTheme.secondary }}
           />
           <View>
             <Text
@@ -87,7 +89,9 @@ const DrawerContent = ({ navigation }) => {
             >
               {currentUser?.displayName ?? currentUser?.email ?? "Anonymous"}
             </Text>
-            <Text className="text-slate-200 text-sm">Score total: 202 pts</Text>
+            <Text className="text-sm" style={{ color: curTheme.neutral }}>
+              Score total: 202 pts
+            </Text>
           </View>
         </TouchableOpacity>
 
