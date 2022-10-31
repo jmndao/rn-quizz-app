@@ -21,7 +21,7 @@ const Header = ({ leftComponent, title }) => {
   };
 
   return (
-    <View className="flex-row py-1.5 px-2 items-center justify-between mb-4 border-b border-gray-300 shadow-md shadow-gray-800">
+    <View className="flex-row py-1.5 px-2 items-center justify-between mb-4 border-b border-gray-300">
       <StatusBar
         barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"}
         backgroundColor={curTheme?.primary}
