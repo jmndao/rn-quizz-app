@@ -19,7 +19,8 @@ const ThemeCard = ({ item, onPress }) => {
   return item.notions && item.notions.length > 0 ? (
     <TouchableOpacity
       onPress={onPress}
-      className="relative mb-3 bg-slate-50 shadow-lg shadow-sky-400 rounded-md h-40"
+      className="relative mb-3 shadow-lg shadow-red-400 rounded-2xl h-40"
+      style={{ backgroundColor: curTheme.secondary }}
     >
       <Image
         source={images[item.imageUrl]}
@@ -28,7 +29,10 @@ const ThemeCard = ({ item, onPress }) => {
       />
 
       {/* View Dark Layer */}
-      <View className="absolute inset-0 w-full h-full rounded-2xl bg-black opacity-70" />
+      <View
+        className="absolute inset-0 w-full h-full rounded-2xl opacity-70"
+        style={{ backgroundColor: curTheme.secondary }}
+      />
 
       {/* Content Layer */}
       <View className="absolute inset-0 w-full h-full px-1.5 py-2 z-10">
@@ -40,7 +44,7 @@ const ThemeCard = ({ item, onPress }) => {
           >
             <Text
               className="text-sm font-semibold"
-              style={{ color: curTheme.neutral }}
+              style={{ color: curTheme.secondary }}
             >
               {item.title}
             </Text>
@@ -66,7 +70,10 @@ const ThemeCard = ({ item, onPress }) => {
       </View>
     </TouchableOpacity>
   ) : (
-    <View className="relative mb-3 bg-slate-50 shadow-lg shadow-sky-400 rounded-md h-40">
+    <View
+      className="relative mb-3 shadow-lg shadow-sky-400 rounded-2xl h-40"
+      style={{ backgroundColor: curTheme.secondary }}
+    >
       <Image
         source={images[item.imageUrl]}
         resizeMode="cover"
@@ -74,7 +81,10 @@ const ThemeCard = ({ item, onPress }) => {
       />
 
       {/* View Dark Layer */}
-      <View className="absolute inset-0 w-full h-full rounded-2xl bg-black opacity-70" />
+      <View
+        className="absolute inset-0 w-full h-full rounded-2xl opacity-70"
+        style={{ backgroundColor: curTheme.secondary }}
+      />
 
       {/* Content Layer */}
       <View className="absolute inset-0 w-full h-full px-1.5 py-2 z-10">
@@ -86,7 +96,7 @@ const ThemeCard = ({ item, onPress }) => {
           >
             <Text
               className="text-sm font-semibold"
-              style={{ color: curTheme.neutral }}
+              style={{ color: curTheme.secondary }}
             >
               {item.title}
             </Text>
@@ -94,7 +104,10 @@ const ThemeCard = ({ item, onPress }) => {
         </View>
         {/* Description */}
         <View className="mt-2.5 mb-1">
-          <Text className="text-slate-100 tracking-wide leading-relaxed">
+          <Text
+            className="tracking-wide leading-relaxed"
+            style={{ color: curTheme.neutral }}
+          >
             {item.description}
           </Text>
         </View>

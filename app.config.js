@@ -30,7 +30,7 @@ export default {
         splash: {
             image: "./assets/splash.png",
             resizeMode: "contain",
-            backgroundColor: "#0284C7",
+            backgroundColor: "transparent",
         },
 
         assetBundlePatterns: ["**/*"],
