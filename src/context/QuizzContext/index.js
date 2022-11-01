@@ -1,6 +1,5 @@
 import React from "react";
 import { Animated, View } from "react-native";
-import { COLORS } from "../../constants";
 import { useFirebase } from "../FirebaseContext";
 import { useTheme } from "../ThemeContext";
 

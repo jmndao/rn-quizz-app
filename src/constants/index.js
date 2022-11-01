@@ -49,8 +49,8 @@ export const ligthTheme = {
     primaryOpacity70: "rgba(242,6,6,255, 0.7)",
 
     // 30% -> Characters color
-    secondary: "#1f2937",
-    secondaryHigh: "#4b5563",
+    secondary: "#18181b",
+    secondaryHigh: "#3f3f46",
 
     // 60% -> Background color
     neutral: "#f8fafc",
@@ -67,6 +67,6 @@ export const darkTheme = {
     secondaryHigh: "#cbd5e1",
 
     // 60% -> Background color
-    neutral: "#1f2937",
-    neutralHigh: "#cbd5e1",
+    neutral: "#18181b",
+    neutralHigh: "#3f3f46",
 };

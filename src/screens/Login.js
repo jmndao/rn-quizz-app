@@ -14,9 +14,9 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 
 import { useFirebase } from "../context/FirebaseContext";
-import { COLORS } from "../constants";
 import { ActivityIndicator } from "react-native-paper";
 import { useTheme } from "../context/ThemeContext";
+import Toast from "react-native-toast-message";
 
 const Login = ({ navigation }) => {
   const [data, setData] = React.useState({
@@ -89,6 +89,15 @@ const Login = ({ navigation }) => {
   const onSubmit = () => {
     login(data.email, data.password);
   };
+
+  React.useEffect(() => {
+    if (error.hasErr) {
+      Toast.show({
+        type: "error",
+        text1: `${error.message} 👋`,
+      });
+    }
+  }, [error]);
 
   return (
     <View style={{ flex: 1, backgroundColor: curTheme.primary }}>

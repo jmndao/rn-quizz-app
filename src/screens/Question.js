@@ -15,7 +15,11 @@ const LeftComponent = ({ navigation }) => {
       onPress={() => navigation.goBack()}
       style={{ backgroundColor: curTheme.neutral }}
     >
-      <Ionicons name="ios-return-up-back" size={26} color={curTheme.secondary} />
+      <Ionicons
+        name="ios-return-up-back"
+        size={26}
+        color={curTheme.secondary}
+      />
     </TouchableOpacity>
   );
 };
@@ -34,7 +38,10 @@ const Question = (props) => {
         leftComponent={<LeftComponent navigation={props.navigation} />}
         title={`${content.title}`}
       />
-      <View className="px-3 py-3" style={{ backgroundColor: curTheme.neutral }}>
+      <View
+        className="px-3 py-3"
+        style={{ flex: 1, backgroundColor: curTheme.neutral }}
+      >
         {renderProgressBar()}
         {/* Quizz */}
         <Quizz questions={content.qa} nav={navigate} />

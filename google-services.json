@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "674896090952",
+    "firebase_url": "https://oneschool-fe158-default-rtdb.firebaseio.com",
+    "project_id": "oneschool-fe158",
+    "storage_bucket": "oneschool-fe158.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674896090952:android:ffdf38d73d2e5b20a0c57d",
+        "android_client_info": {
+          "package_name": "com.jmndao.OneSchool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674896090952-dm9t8kj7gr5h708s6mf6vscbm0jqb1ss.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jmndao.OneSchool",
+            "certificate_hash": "a621a65490efb50c8f2af4b76f46090ed7aadd94"
+          }
+        },
+        {
+          "client_id": "674896090952-gi8bd1sbmf3djurrm6uj61kds80g1apu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6IN6rDrKXH5Rpfjh8N2IxaKnxeaQ9NmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674896090952-gi8bd1sbmf3djurrm6uj61kds80g1apu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

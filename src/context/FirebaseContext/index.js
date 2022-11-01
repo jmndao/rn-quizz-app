@@ -8,9 +8,10 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { Modal, Text, TouchableOpacity, View } from "react-native";
+import { Modal, Platform, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../constants";
 import { auth, db, rdb } from "../../../firebaseApp";
+
 
 const FirebaseContext = React.createContext(null);
 
@@ -92,6 +93,7 @@ const FirebaseProvider = ({ children }) => {
         setLoading(false);
       });
   };
+
 
   // Firebase log out method
   const logout = async () => {
