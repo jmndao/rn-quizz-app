@@ -175,7 +175,7 @@ const Login = ({ navigation }) => {
         <View style={styles.button}>
           <TouchableOpacity style={styles.signIn} onPress={onSubmit}>
             <LinearGradient
-              colors={[curTheme.primary, curTheme.secondaryHigh]}
+              colors={[curTheme.primary, "#7f1d1d"]}
               style={styles.signIn}
             >
               {loading ? (

@@ -25,16 +25,16 @@ const ItemDrawer = ({
       onPress={onPress}
       style={{
         ...customStyle,
-        backgroundColor: isFocused ? curTheme.secondary : "transparent",
+        backgroundColor: isFocused ? curTheme.neutral : "transparent",
       }}
     >
       {loading ? (
-        <ActivityIndicator animating={true} color={curTheme.neutral} />
+        <ActivityIndicator animating={true} color={curTheme.secondary} />
       ) : (
-        <EntypoIcon name={icon} size={22} color={curTheme.neutral} />
+        <EntypoIcon name={icon} size={22} color={curTheme.secondary} />
       )}
       <View>
-        <Text className="font-semibold" style={{ color: curTheme.neutral }}>
+        <Text className="font-semibold" style={{ color: curTheme.secondary }}>
           {title}
         </Text>
       </View>
@@ -75,12 +75,11 @@ const DrawerContent = ({ navigation }) => {
         {/* Profile */}
         <TouchableOpacity
           className="flex-row mt-6 items-center space-x-4"
-          onPress={() => console.log("Profile")}
+          onPress={() => navigation.navigate("Profile")}
         >
           <Image
             source={currentUser?.photoURL ?? UserProfile_DEFAULT}
-            className="w-10 h-10 rounded-md"
-            style={{ tintColor: curTheme.secondary }}
+            className="w-10 h-10 rounded-full"
           />
           <View>
             <Text

@@ -44,7 +44,7 @@ const ThemeCard = ({ item, onPress }) => {
           >
             <Text
               className="text-sm font-semibold"
-              style={{ color: curTheme.secondary }}
+              style={{ color: "#fff" }}
             >
               {item.title}
             </Text>
@@ -96,7 +96,7 @@ const ThemeCard = ({ item, onPress }) => {
           >
             <Text
               className="text-sm font-semibold"
-              style={{ color: curTheme.secondary }}
+              style={{ color: "#fff" }}
             >
               {item.title}
             </Text>

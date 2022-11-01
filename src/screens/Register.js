@@ -167,7 +167,7 @@ const Register = ({ navigation }) => {
           <View style={styles.button}>
             <TouchableOpacity style={styles.signIn} onPress={onCreate}>
               <LinearGradient
-                colors={[curTheme.primary, curTheme.secondaryHigh]}
+                colors={[curTheme.primary, "#7f1d1d"]}
                 style={styles.signIn}
               >
                 {loading ? (
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     paddingHorizontal: 20,
-    paddingBottom: 50,
+    paddingBottom: Platform.OS === "ios" ? 40 : 20,
   },
   footer: {
     flex: Platform.OS === "ios" ? 3 : 5,
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   },
   text_footer: {
     color: "#05375a",
-    fontSize: 18,
+    fontSize: Platform.OS === "ios" ? 16 : 12,
   },
   action: {
     flexDirection: "row",
@@ -251,23 +251,23 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    marginTop: Platform.OS === "ios" ? 0 : -5,
+    marginTop: Platform.OS === "ios" ? 0 : -12,
     paddingLeft: 10,
     color: "red",
   },
   button: {
     alignItems: "center",
-    marginTop: 50,
+    marginTop: Platform.OS === "ios" ? 50 : 35,
   },
   signIn: {
     width: "100%",
-    height: 50,
+    height: Platform.OS === "ios" ? 50 : 35,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
   },
   textSign: {
-    fontSize: 18,
+    fontSize: Platform.OS === "ios" ? 16 : 12,
     fontWeight: "bold",
   },
   textPrivate: {

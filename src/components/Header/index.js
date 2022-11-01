@@ -47,8 +47,7 @@ const Header = ({ leftComponent, title }) => {
       <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
         <Image
           source={UserProfile_DEFAULT}
-          className="w-8 h-8 rounded-md"
-          style={{ tintColor: curTheme.secondary }}
+          className="w-8 h-8 rounded-full"
         />
       </TouchableOpacity>
     </View>

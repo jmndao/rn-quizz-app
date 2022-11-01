@@ -5,6 +5,7 @@ import QuizzProvider from "./src/context/QuizzContext";
 import { TabProvider } from "./src/context/TabContext";
 import ThemeProvider from "./src/context/ThemeContext";
 import { DrawerNavigator } from "./src/navigation/Navigation";
+import Toast from "react-native-toast-message";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
             <TabProvider>
               <QuizzProvider>
                 <DrawerNavigator />
+                <Toast />
               </QuizzProvider>
             </TabProvider>
           </NavigationContainer>

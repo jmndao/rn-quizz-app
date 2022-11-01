@@ -16,6 +16,19 @@ import Feather from "react-native-vector-icons/Feather";
 import { ActivityIndicator } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "../context/ThemeContext";
+import Toast from "react-native-toast-message";
+
+const colorIdx = Math.floor(Math.random() * 7) + 1;
+
+const colors = [
+  "#e52165",
+  "#0d1137",
+  "#d72631",
+  "#077b8a",
+  "#e2d810",
+  "#d9138a",
+  "#322e2f",
+];
 
 const Profile = () => {
   const { currentUser, updateUser, loading } = useFirebase();
@@ -31,8 +44,16 @@ const Profile = () => {
     setData((prev) => ({ ...prev, [input]: value }));
   };
 
-  const onSubmit = () => {
-    updateUser(currentUser, data);
+  const onSubmit = async () => {
+    await updateUser(currentUser, data);
+    showToast();
+  };
+
+  const showToast = () => {
+    Toast.show({
+      type: "success",
+      text1: "👋 Votre modification a ete prise en charge.",
+    });
   };
 
   const renderProfileImage = () => {
@@ -40,13 +61,13 @@ const Profile = () => {
       <View style={{ alignItems: "center" }}>
         <View
           className="relative w-full h-24"
-          style={{ backgroundColor: curTheme.primary }}
+          style={{ backgroundColor: colors[colorIdx] }}
         >
           <View className="absolute -bottom-10 left-0 right-0 justify-center items-center">
             <Image
               source={currentUser?.photoURL ?? UserProfile_DEFAULT}
               className="w-20 h-20 rounded-full"
-              blurRadius={10}
+              borderRadius={10}
               resizeMethod="auto"
               resizeMode="cover"
             />
@@ -75,17 +96,17 @@ const Profile = () => {
             Changer Mon Profile
           </Text>
 
-          <View className="flex-row my-4 border-b border-gray-800 pb-2">
+          <View className="flex-row my-4 border-b border-gray-400 pb-2">
             <FontAwesome name="user-o" color={curTheme.primary} size={20} />
             <TextInput
               placeholder={currentUser?.displayName ?? ""}
-              className={`pl-2.5 outline-none placeholder-gray-700 ${
+              className={`pl-2.5 outline-none placeholder-gray-400 ${
                 Platform.OS === "ios" ? "mt-0" : "-mt-3"
               }`}
               autoCapitalize="none"
               onChangeText={(val) => handleChange("displayName", val)}
               // onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
-              style={{ flex: 1, color: curTheme.secondary }}
+              style={{ flex: 1, color: curTheme.secondaryHigh }}
             />
             {data?.displayName >= 6 ? (
               <Animatable.View animation="bounceIn">
@@ -95,7 +116,7 @@ const Profile = () => {
           </View>
         </View>
 
-        <View className="flex-row my-4 border-b border-gray-800 pb-2">
+        <View className="flex-row my-4 border-b border-gray-400 pb-2">
           <Feather name="at-sign" color={curTheme.primary} size={20} />
           <TextInput
             placeholder={
@@ -103,7 +124,7 @@ const Profile = () => {
                 ? "Utilisateur Anonyme"
                 : currentUser.email
             }
-            className={`pl-2.5 outline-none placeholder-gray-700 ${
+            className={`pl-2.5 outline-none placeholder-gray-400 ${
               Platform.OS === "ios" ? "mt-0" : "-mt-3"
             }`}
             autoCapitalize="none"
@@ -118,26 +139,29 @@ const Profile = () => {
           ) : null}
         </View>
 
-        <TouchableOpacity
-          className="w-full h-10 mt-5 items-center justify-center rounded-md"
-          onPress={onSubmit}
-        >
-          <LinearGradient
-            colors={[curTheme.primary, curTheme.primary]}
-            className="w-full h-14 items-center justify-center rounded-md"
+        <View className="w-full my-4 items-center justify-center rounded-md">
+          <TouchableOpacity
+            className="w-1/2 items-center justify-center h-auto"
+            onPress={onSubmit}
           >
-            {loading ? (
-              <ActivityIndicator animating={true} color={curTheme.neutral} />
-            ) : (
-              <Text
-                className="font-semibold text-lg"
-                style={{ color: curTheme.neutral }}
-              >
-                Editer
-              </Text>
-            )}
-          </LinearGradient>
-        </TouchableOpacity>
+            <LinearGradient
+              colors={[curTheme.primary, "#7f1d1d"]}
+              className="w-full px-10 items-center justify-center rounded-full shadow-lg"
+              style={{ height: Platform.OS === "ios" ? 50 : 35 }}
+            >
+              {loading ? (
+                <ActivityIndicator animating={true} color={"#fff"} />
+              ) : (
+                <Text
+                  className="font-semibold text-base"
+                  style={{ color: "#fff" }}
+                >
+                  Editer
+                </Text>
+              )}
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
