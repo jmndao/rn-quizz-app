@@ -21,7 +21,10 @@ const Header = ({ leftComponent, title }) => {
   };
 
   return (
-    <View className="flex-row py-1.5 px-2 items-center justify-between mb-4 border-b border-gray-300">
+    <View
+      className="flex-row py-2.5 px-2 items-center justify-between border-b border-gray-300"
+      style={{ backgroundColor: curTheme.neutral }}
+    >
       <StatusBar
         barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"}
         backgroundColor={curTheme?.primary}
@@ -45,10 +48,7 @@ const Header = ({ leftComponent, title }) => {
 
       {/* Profile Button */}
       <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-        <Image
-          source={UserProfile_DEFAULT}
-          className="w-8 h-8 rounded-full"
-        />
+        <Image source={UserProfile_DEFAULT} className="w-8 h-8 rounded-full" />
       </TouchableOpacity>
     </View>
   );

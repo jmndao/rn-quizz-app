@@ -2,11 +2,13 @@ import React from "react";
 import { Animated, View } from "react-native";
 import { COLORS } from "../../constants";
 import { useFirebase } from "../FirebaseContext";
+import { useTheme } from "../ThemeContext";
 
 const QuizzContext = React.createContext(null);
 
 const QuizzProvider = ({ children }) => {
   const { fetchThemes } = useFirebase();
+  const { curTheme } = useTheme();
 
   const [qstLength, setQstLength] = React.useState(0);
   const [score, setScore] = React.useState(0);
@@ -60,7 +62,7 @@ const QuizzProvider = ({ children }) => {
           width: "100%",
           height: 10,
           borderRadius: 10,
-          backgroundColor: "#00000020",
+          backgroundColor: curTheme.secondaryHigh,
         }}
       >
         <Animated.View
@@ -68,7 +70,7 @@ const QuizzProvider = ({ children }) => {
             {
               height: 10,
               borderRadius: 10,
-              backgroundColor: COLORS.accent,
+              backgroundColor: curTheme.primary,
             },
             {
               width: progressAnim,

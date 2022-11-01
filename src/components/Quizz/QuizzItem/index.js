@@ -76,10 +76,10 @@ const QuizzItem = ({ answer, validateAnswer }) => {
       style={{
         borderWidth: 2,
         borderColor: renderBorderColor(),
-        backgroundColor: renderBgColor(),
+        backgroundColor: curTheme.secondaryHigh,
         height: "auto",
         minHeight: Platform.OS === "ios" ? 60 : 40,
-        borderRadius: 20,
+        borderRadius: Platform.OS === "ios" ? 18 : 14,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
@@ -89,7 +89,7 @@ const QuizzItem = ({ answer, validateAnswer }) => {
     >
       <Text
         style={{
-          color: curTheme.secondary,
+          color: curTheme.neutral,
           fontSize: Platform.OS === "ios" ? 14 : 12,
         }}
       >
